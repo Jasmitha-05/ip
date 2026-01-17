@@ -48,7 +48,7 @@ public class Stitch {
                     System.out.println("     _________________________________");
                     System.out.println("     Nice! I've marked this task as done:");
                     System.out.println("     " + tasks[order].toString());
-                    System.out.println("________________________________");
+                    System.out.println("     ________________________________");
                 }
             }
 
@@ -64,15 +64,51 @@ public class Stitch {
                     System.out.println("     _________________________________");
                     System.out.println("     OK, I've marked this task as not done yet:");
                     System.out.println("     " + tasks[order].toString());
-                    System.out.println("________________________________");
+                    System.out.println("     ________________________________");
                 }
             }
 
-            else {
-                    tasks[numOfTasks] = new Task(userInput); //Add new task
+            else if (userInput.startsWith("todo ")) { //Add new todo task
+                    String removeToDOString = userInput.replaceFirst("todo ", "");
+                    Task newTask = new ToDo(removeToDOString); 
+                    tasks[numOfTasks] = newTask;
                     numOfTasks++;
                     System.out.println("     _________________________________");
-                    System.out.println("     added: " + userInput);
+                    System.out.println("     Got it. I've added this task:");
+                    System.out.println("     " + newTask.toString());
+                    System.out.println("     Now you have " + (numOfTasks) + " tasks in the list.");
+                    System.out.println("     _________________________________");
+                }
+            
+                else if (userInput.startsWith("deadline ")) { //Add new deadline task
+                    String removeToDOString = userInput.replaceFirst("deadline ", "");
+                    String[] splitInput = removeToDOString.split(" /by");
+                    Task newTask = new Deadline(splitInput[0], splitInput[1]); 
+                    tasks[numOfTasks] = newTask;
+                    numOfTasks++;
+                    System.out.println("     _________________________________");
+                    System.out.println("     Got it. I've added this task:");
+                    System.out.println("     " + newTask.toString());
+                    System.out.println("     Now you have " + (numOfTasks) + " tasks in the list.");
+                    System.out.println("     _________________________________");
+                }
+
+                else if (userInput.startsWith("event ")) { //Add new event task
+                    String removeToDOString = userInput.replaceFirst("event ", "");
+                    String[] splitInput = removeToDOString.split(" /from| /to");
+                    Task newTask = new Event(splitInput[0], splitInput[1], splitInput[2]); 
+                    tasks[numOfTasks] = newTask;
+                    numOfTasks++;
+                    System.out.println("     _________________________________");
+                    System.out.println("     Got it. I've added this task:");
+                    System.out.println("     " + newTask.toString());
+                    System.out.println("     Now you have " + (numOfTasks) + " tasks in the list.");
+                    System.out.println("     _________________________________");
+                }
+
+                else {
+                    System.out.println("     _________________________________");
+                    System.out.println("     I'm sorry, I don't understand.");
                     System.out.println("     _________________________________");
                 }
             }
