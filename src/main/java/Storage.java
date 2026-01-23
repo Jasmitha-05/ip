@@ -84,10 +84,10 @@ public class Storage {
             return "T | " + isDone + " | " + task.description;
         } else if (task instanceof Deadline) {
             Deadline deadline = (Deadline) task;
-            return "D | " + isDone + " | " + task.description + " | " + deadline.by;
+            return "D | " + isDone + " | " + task.description + " | " + deadline.by.format(Task.INPUT);
         } else if (task instanceof Event) {
             Event event = (Event) task;
-            return "E | " + isDone + " | " + task.description + " | " + event.from + " | " + event.to;
+            return "E | " + isDone + " | " + task.description + " | " + event.from.format(Task.INPUT) + " | " + event.to.format(Task.INPUT);
         } else {
             throw new IllegalArgumentException("Unknown task");
         }
