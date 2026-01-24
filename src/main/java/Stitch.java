@@ -11,56 +11,29 @@ public class Stitch {
         ui.showGreet(chatBotName);
 
         while(true) {
-            String userInput = scanner.nextLine().trim();
 
-            if (userInput.equalsIgnoreCase("bye")) { //Exit
-                ui.showBye();
-                break;
-            }
-            
+            String userInput = scanner.nextLine().trim();
             try {
-                if (userInput.equalsIgnoreCase("list")) {
-                    taskList.DisplayAllTasks();
-                } else if (userInput.startsWith("mark")) {
-                    try {
-                        int order = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                        taskList.MarkTask(order);
-                    } catch (NumberFormatException e) {
-                        throw new StitchException("OOPS! not a valid number. Maybe it's a mistake?");
+                String[] parsedInput = Parser.parse(userInput);
+                switch (parsedInput[0]) {
+                    case "list" -> taskList.DisplayAllTasks();
+                    case "mark" -> taskList.MarkTask(Integer.parseInt(parsedInput[1]));
+                    case "unmark" -> taskList.UnmarkTask(Integer.parseInt(parsedInput[1]));
+                    case "todo" -> taskList.ToDoTask(parsedInput[1]);
+                    case "deadline" -> taskList.DeadlineTask(parsedInput[1], parsedInput[2]);
+                    case "event" -> taskList.EventTask(parsedInput[1], parsedInput[2], parsedInput[3]);
+                    case "delete" -> taskList.DeleteTask(Integer.parseInt(parsedInput[1]));
+                    case "search" -> taskList.SameDateTask(parsedInput[1]);
+                    case "bye" -> {
+                        ui.showBye();
+                        scanner.close();
+                        return;
                     }
-                } else if (userInput.startsWith("unmark")) {
-                    try {
-                        int order = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                        taskList.UnmarkTask(order);
-                    } catch (NumberFormatException e) {
-                        throw new StitchException("OOPS! not a valid number. Maybe it's a mistake?");
-                    }
-                } else if (userInput.startsWith("todo")) {
-                    String removeToDOString = userInput.replaceFirst("todo", "").trim();
-                    taskList.ToDoTask(removeToDOString);
-                } else if (userInput.startsWith("deadline")) {
-                     String[] removeToDOString = userInput.replaceFirst("deadline ", "").split(" /by");
-                     taskList.DeadlineTask(removeToDOString[0].trim(), removeToDOString[1].trim());
-                } else if (userInput.startsWith("event")) {
-                    String[] removeToDOString = userInput.replaceFirst("event ", "").split(" /from| /to");
-                    taskList.EventTask(removeToDOString[0].trim(), removeToDOString[1].trim(), removeToDOString[2].trim());
-                } else if (userInput.startsWith("delete")) {
-                    try {
-                        int order = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                        taskList.DeleteTask(order);
-                    } catch (NumberFormatException e) {
-                        throw new StitchException("OOPS! not a valid number. Maybe it's a mistake?");
-                    }
-                } else if (userInput.startsWith("search")) {
-                    String removeToDOString = userInput.replaceFirst("search", "").trim();
-                    taskList.SameDateTask(removeToDOString);
-                } else {
-                    throw new StitchException("I'm sorry, I don't understand.");
+                    default -> ui.showErrorMessage("I'm sorry, I don't understand.");
                 }
             } catch (StitchException e) {
                 ui.showErrorMessage(e.getMessage());
             }
         }
-         scanner.close();
     }
 }

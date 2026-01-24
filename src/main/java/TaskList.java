@@ -14,10 +14,6 @@ public class TaskList {
         this.tasks = storage.load();
     }
 
-    public ArrayList<Task> getTasks() {
-        return this.tasks;
-    }
-
     public void DisplayAllTasks() {
         ui.showAllTask(tasks, tasks.size());
     }
