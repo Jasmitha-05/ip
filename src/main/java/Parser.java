@@ -12,7 +12,7 @@ public class Parser {
             try {
                 order = Integer.parseInt(userInput.split(" ")[1]) - 1;
                 } catch (NumberFormatException e) {
-                    throw new StitchException("OOPS! not a valid number. Maybe it's a mistake?");
+                    throw new StitchException("OOPS! not a valid number. Was it a mistake?");
                 }
             return new String[] {"mark", String.valueOf(order)};
         }
@@ -22,7 +22,7 @@ public class Parser {
             try {
                 order = Integer.parseInt(userInput.split(" ")[1]) - 1;
                 } catch (NumberFormatException e) {
-                    throw new StitchException("OOPS! not a valid number. Maybe it's a mistake?");
+                    throw new StitchException("OOPS! not a valid number. Was it a mistake?");
                 }
             return new String[] {"unmark", String.valueOf(order)};
         }
