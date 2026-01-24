@@ -1,6 +1,10 @@
 package stitch;
+
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a task with a description, completion status (mark/unmark).
+ */
 public class Task {
 
     protected static final DateTimeFormatter INPUT = DateTimeFormatter.ofPattern("yyyy-M-d H:m");
@@ -13,6 +17,12 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Returns a string format (X or space) to indicate the completion status of the
+     * task
+     * 
+     * @return "X" or "" depending on the completion status of the task
+     */
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }

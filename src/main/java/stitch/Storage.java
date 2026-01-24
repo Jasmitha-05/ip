@@ -1,15 +1,27 @@
 package stitch;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+
 import java.util.ArrayList;
 
+/**
+ * Storage class handles the loading and saving of tasks to a file in order to
+ * retrieve the pre-existing list whenever the application is running.
+ */
 public class Storage {
     private String path = "./data/stitch.txt";
     String text;
 
+    /**
+     * Returns an ArrayList of Tasks loaded from the stitch file that was previously
+     * saved.
+     * 
+     * @return ArrayList<Task> tasks containing all tasks loaded from stitch file.
+     */
     public ArrayList<Task> load() {
         ArrayList<Task> tasks = new ArrayList<Task>();
 
@@ -31,7 +43,13 @@ public class Storage {
         return tasks;
     }
 
-    public void save (ArrayList<Task> tasks) {
+    /**
+     * Saves the current list of tasks to the stitch file.
+     * 
+     * @param tasks ArrayList<Task> containing all tasks in the current list to be
+     *              saved locally on disk.
+     */
+    public void save(ArrayList<Task> tasks) {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(path));
 
@@ -47,7 +65,15 @@ public class Storage {
         }
     }
 
-    private Task parse (String text) throws IllegalArgumentException, StitchException {
+    /**
+     * Returns a Task object parsed from the given text line from the stitch file.
+     *
+     * @param text The text line to parse.
+     * @return Task object parsed from the given text line.
+     * @throws IllegalArgumentException for unknown/invalid task types.
+     * @throws StitchException
+     */
+    private Task parse(String text) throws IllegalArgumentException, StitchException {
         String[] split = text.split(" \\| ");
         String symbolString = split[0];
         String isDone = split[1];
@@ -79,6 +105,14 @@ public class Storage {
         }
     }
 
+    /**
+     * Returns a string representation of each Task in the list to be saved in the
+     * stitch file.
+     * 
+     * @param task The Task object to format as a string representation.
+     * @return A string representation of each Task in the list.
+     * @throws IllegalArgumentException for unknown/invalid task types.
+     */
     private String format(Task task) throws IllegalArgumentException {
         String isDone = task.isDone ? "1" : "0";
         if (task instanceof ToDo) {
@@ -88,7 +122,8 @@ public class Storage {
             return "D | " + isDone + " | " + task.description + " | " + deadline.by.format(Task.INPUT);
         } else if (task instanceof Event) {
             Event event = (Event) task;
-            return "E | " + isDone + " | " + task.description + " | " + event.from.format(Task.INPUT) + " | " + event.to.format(Task.INPUT);
+            return "E | " + isDone + " | " + task.description + " | " + event.from.format(Task.INPUT) + " | "
+                    + event.to.format(Task.INPUT);
         } else {
             throw new IllegalArgumentException("Unknown task");
         }

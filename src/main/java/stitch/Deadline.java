@@ -1,7 +1,13 @@
 package stitch;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a deadline task with a description and due date and time (format:
+ * yyyy-M-d H:m).
+ * Extends the Task class.
+ */
 public class Deadline extends Task {
     protected LocalDateTime by;
 
