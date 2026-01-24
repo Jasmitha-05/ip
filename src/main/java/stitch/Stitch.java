@@ -1,4 +1,5 @@
 package stitch;
+
 import java.util.Scanner;
 
 public class Stitch {
@@ -11,20 +12,20 @@ public class Stitch {
 
         ui.showGreet(chatBotName);
 
-        while(true) {
+        while (true) {
 
             String userInput = scanner.nextLine().trim();
             try {
                 String[] parsedInput = Parser.parse(userInput);
                 switch (parsedInput[0]) {
-                    case "list" -> taskList.DisplayAllTasks();
-                    case "mark" -> taskList.MarkTask(Integer.parseInt(parsedInput[1]));
-                    case "unmark" -> taskList.UnmarkTask(Integer.parseInt(parsedInput[1]));
-                    case "todo" -> taskList.ToDoTask(parsedInput[1]);
-                    case "deadline" -> taskList.DeadlineTask(parsedInput[1], parsedInput[2]);
-                    case "event" -> taskList.EventTask(parsedInput[1], parsedInput[2], parsedInput[3]);
-                    case "delete" -> taskList.DeleteTask(Integer.parseInt(parsedInput[1]));
-                    case "search" -> taskList.SameDateTask(parsedInput[1]);
+                    case "list" -> taskList.displayAllTasks();
+                    case "mark" -> taskList.markTask(Integer.parseInt(parsedInput[1]));
+                    case "unmark" -> taskList.unmarkTask(Integer.parseInt(parsedInput[1]));
+                    case "todo" -> taskList.todoTask(parsedInput[1]);
+                    case "deadline" -> taskList.deadlineTask(parsedInput[1], parsedInput[2]);
+                    case "event" -> taskList.eventTask(parsedInput[1], parsedInput[2], parsedInput[3]);
+                    case "delete" -> taskList.deleteTask(Integer.parseInt(parsedInput[1]));
+                    case "search" -> taskList.sameDateTask(parsedInput[1]);
                     case "bye" -> {
                         ui.showBye();
                         scanner.close();

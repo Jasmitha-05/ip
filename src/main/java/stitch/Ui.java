@@ -1,9 +1,10 @@
 package stitch;
+
 import java.util.ArrayList;
 
 public class Ui {
     public void showGreet(String chatBotName) {
-        System.out.println("     ______________________________"); //Greet
+        System.out.println("     ______________________________"); // Greet
         System.out.println("     Hello! I'm " + chatBotName);
         System.out.println("     What can I do for you?");
         System.out.println("     ______________________________");
@@ -63,6 +64,6 @@ public class Ui {
                 order++;
             }
         }
-            System.out.println("     ______________________________");
+        System.out.println("     ______________________________");
     }
 }

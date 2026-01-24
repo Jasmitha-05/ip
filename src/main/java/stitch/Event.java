@@ -1,4 +1,5 @@
 package stitch;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
@@ -18,7 +19,8 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from.format(OUTPUT) + " to: " + to.format(OUTPUT) + ")";
+        return "[E]" + super.toString() + " (from: " + from.format(OUTPUT)
+                + " to: " + to.format(OUTPUT) + ")";
     }
 
 }

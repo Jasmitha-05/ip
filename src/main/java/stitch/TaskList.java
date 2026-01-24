@@ -1,4 +1,5 @@
 package stitch;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -15,13 +16,13 @@ public class TaskList {
         this.tasks = storage.load();
     }
 
-    public void DisplayAllTasks() {
+    public void displayAllTasks() {
         ui.showAllTask(tasks, tasks.size());
     }
 
-    public void MarkTask(int order) throws StitchException {
+    public void markTask(int order) throws StitchException {
         if (tasks.size() == 0) {
-                throw new StitchException("OOPS! no more task to mark.");
+            throw new StitchException("OOPS! no more task to mark.");
         }
 
         if (order < 0 || order >= tasks.size()) {
@@ -33,21 +34,21 @@ public class TaskList {
         ui.showMarkTask(tasks.get(order));
     }
 
-    public void UnmarkTask(int order) throws StitchException {
+    public void unmarkTask(int order) throws StitchException {
         if (tasks.size() == 0) {
             throw new StitchException("OOPS! no more task to unmark.");
-        } 
-        
+        }
+
         if (order < 0 || order >= tasks.size()) {
             throw new StitchException("OOPS! the number is invalid.");
         }
 
         tasks.get(order).markAsUnDone();
-        storage.save(tasks); 
+        storage.save(tasks);
         ui.showUnmarkTask(tasks.get(order));
     }
 
-    public void ToDoTask(String description) throws StitchException {
+    public void todoTask(String description) throws StitchException {
         if (description.isEmpty()) {
             throw new StitchException("OOPS! you forgot to name the todo task");
         }
@@ -58,22 +59,22 @@ public class TaskList {
         ui.showAddTask(newTask, tasks.size());
     }
 
-    public void DeadlineTask(String description, String by) throws StitchException {
+    public void deadlineTask(String description, String by) throws StitchException {
         if (description.isEmpty()) {
             throw new StitchException("OOPS! you forget to add the deadline task");
         }
 
-        if(by.isEmpty()) {
+        if (by.isEmpty()) {
             throw new StitchException("OOPS! you forget to add the deadline date and time");
         }
 
         Task newTask = new Deadline(description, by);
         tasks.add(newTask);
-        storage.save(tasks); 
+        storage.save(tasks);
         ui.showAddTask(newTask, tasks.size());
     }
 
-    public void EventTask(String description, String from, String to) throws StitchException {
+    public void eventTask(String description, String from, String to) throws StitchException {
         if (description.isEmpty()) {
             throw new StitchException("OOPS! you forget to add the event task");
         }
@@ -86,43 +87,42 @@ public class TaskList {
 
         Task newTask = new Event(description, from, to);
         tasks.add(newTask);
-        storage.save(tasks); 
+        storage.save(tasks);
         ui.showAddTask(newTask, tasks.size());
     }
 
-    public void DeleteTask(int order) throws StitchException {
+    public void deleteTask(int order) throws StitchException {
         if (tasks.size() == 0) {
             throw new StitchException("OOPS! no task to delete.");
         }
         if (order < 0 || order >= tasks.size()) {
             throw new StitchException("OOPS! the number is invalid.");
         }
-        
+
         Task deletedTask = tasks.get(order);
         tasks.remove(order);
-        storage.save(tasks); 
+        storage.save(tasks);
         ui.showDeleteTask(deletedTask, tasks.size());
     }
 
-    public void SameDateTask(String date) throws StitchException {
+    public void sameDateTask(String date) throws StitchException {
         if (tasks.size() == 0) {
             throw new StitchException("OOPS! no tasks currently.");
-        } 
+        }
 
-        DateTimeFormatter INPUT = DateTimeFormatter.ofPattern("yyyy-M-d");
-        DateTimeFormatter OUTPUT = DateTimeFormatter.ofPattern("MMM dd yyyy");
+        DateTimeFormatter input = DateTimeFormatter.ofPattern("yyyy-M-d");
+        DateTimeFormatter output = DateTimeFormatter.ofPattern("MMM dd yyyy");
         LocalDate searchDate;
         boolean present = false;
-        
+
         try {
-            searchDate = LocalDate.parse(date, INPUT);
+            searchDate = LocalDate.parse(date, input);
         } catch (DateTimeParseException e) {
             throw new StitchException("OOPS! wrong format, use format: yyyy-M-d");
         }
 
         System.out.println("     ______________________________");
-        System.out.println("     Got it. Tasks on " + searchDate.format(OUTPUT) + ":");
-
+        System.out.println("     Got it. Tasks on " + searchDate.format(output) + ":");
 
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i) instanceof Deadline) {
@@ -131,17 +131,18 @@ public class TaskList {
                     present = true;
                     System.out.println("     " + tasks.get(i).toString());
                 }
-            
+
             } else if (tasks.get(i) instanceof Event) {
                 LocalDate from = ((Event) tasks.get(i)).from.toLocalDate();
                 LocalDate to = ((Event) tasks.get(i)).to.toLocalDate();
-                if (from.equals(searchDate) || to.equals(searchDate) || (searchDate.isAfter(from) && searchDate.isBefore(to))) {
+                if (from.equals(searchDate) || to.equals(searchDate)
+                        || (searchDate.isAfter(from) && searchDate.isBefore(to))) {
                     present = true;
                     System.out.println("     " + tasks.get(i).toString());
                 }
             } else {
                 continue;
-            }      
+            }
         }
         if (present != true) {
             System.out.println("     YAYYY no tasks!!");

@@ -1,9 +1,11 @@
 package stitch;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+
 import java.util.ArrayList;
 
 public class Storage {
@@ -31,7 +33,7 @@ public class Storage {
         return tasks;
     }
 
-    public void save (ArrayList<Task> tasks) {
+    public void save(ArrayList<Task> tasks) {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(path));
 
@@ -47,7 +49,7 @@ public class Storage {
         }
     }
 
-    private Task parse (String text) throws IllegalArgumentException, StitchException {
+    private Task parse(String text) throws IllegalArgumentException, StitchException {
         String[] split = text.split(" \\| ");
         String symbolString = split[0];
         String isDone = split[1];
@@ -88,7 +90,8 @@ public class Storage {
             return "D | " + isDone + " | " + task.description + " | " + deadline.by.format(Task.INPUT);
         } else if (task instanceof Event) {
             Event event = (Event) task;
-            return "E | " + isDone + " | " + task.description + " | " + event.from.format(Task.INPUT) + " | " + event.to.format(Task.INPUT);
+            return "E | " + isDone + " | " + task.description + " | " + event.from.format(Task.INPUT) + " | "
+                    + event.to.format(Task.INPUT);
         } else {
             throw new IllegalArgumentException("Unknown task");
         }
