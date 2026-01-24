@@ -46,7 +46,7 @@ public class Storage {
         }
     }
 
-    private Task parse (String text) throws IllegalArgumentException {
+    private Task parse (String text) throws IllegalArgumentException, StitchException {
         String[] split = text.split(" \\| ");
         String symbolString = split[0];
         String isDone = split[1];
