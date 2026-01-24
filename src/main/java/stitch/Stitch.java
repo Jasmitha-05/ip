@@ -1,6 +1,12 @@
 package stitch;
+
 import java.util.Scanner;
 
+/**
+ * main class of the Stitch chatbot application.
+ * Handles user input and executes based on command types (e.g., list, mark,
+ * unmark, add, delete, search, bye).
+ */
 public class Stitch {
     public static void main(String[] args) {
         String chatBotName = "Stitch";
@@ -11,7 +17,7 @@ public class Stitch {
 
         ui.showGreet(chatBotName);
 
-        while(true) {
+        while (true) {
 
             String userInput = scanner.nextLine().trim();
             try {

@@ -1,7 +1,13 @@
 package stitch;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents an event task with a description, from date and time, to date and
+ * time (format: yyyy-M-d H:m).
+ * Extends the Task class.
+ */
 public class Event extends Task {
     protected LocalDateTime from;
     protected LocalDateTime to;
