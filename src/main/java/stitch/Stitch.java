@@ -1,4 +1,5 @@
 package stitch;
+
 import java.util.Scanner;
 
 public class Stitch {
@@ -11,7 +12,7 @@ public class Stitch {
 
         ui.showGreet(chatBotName);
 
-        while(true) {
+        while (true) {
 
             String userInput = scanner.nextLine().trim();
             try {
@@ -25,6 +26,7 @@ public class Stitch {
                     case "event" -> taskList.EventTask(parsedInput[1], parsedInput[2], parsedInput[3]);
                     case "delete" -> taskList.DeleteTask(Integer.parseInt(parsedInput[1]));
                     case "search" -> taskList.SameDateTask(parsedInput[1]);
+                    case "find" -> taskList.findTask(parsedInput[1]);
                     case "bye" -> {
                         ui.showBye();
                         scanner.close();

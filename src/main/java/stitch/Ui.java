@@ -1,9 +1,10 @@
 package stitch;
+
 import java.util.ArrayList;
 
 public class Ui {
     public void showGreet(String chatBotName) {
-        System.out.println("     ______________________________"); //Greet
+        System.out.println("     ______________________________"); // Greet
         System.out.println("     Hello! I'm " + chatBotName);
         System.out.println("     What can I do for you?");
         System.out.println("     ______________________________");
@@ -63,6 +64,19 @@ public class Ui {
                 order++;
             }
         }
-            System.out.println("     ______________________________");
+        System.out.println("     ______________________________");
+    }
+
+    public void showFindTask(ArrayList<Task> matches) {
+        System.out.println("     ______________________________");
+        if (matches.isEmpty()) {
+            System.out.println("     No matching task and keywords!!");
+        } else {
+            System.out.println("     Here are the matching tasks in your list:");
+            for (int i = 0; i < matches.size(); i++) {
+                System.out.println("     " + (i + 1) + ". " + matches.get(i).toString());
+            }
+        }
+        System.out.println("     ______________________________");
     }
 }

@@ -1,4 +1,5 @@
 package stitch;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -21,7 +22,7 @@ public class TaskList {
 
     public void MarkTask(int order) throws StitchException {
         if (tasks.size() == 0) {
-                throw new StitchException("OOPS! no more task to mark.");
+            throw new StitchException("OOPS! no more task to mark.");
         }
 
         if (order < 0 || order >= tasks.size()) {
@@ -36,14 +37,14 @@ public class TaskList {
     public void UnmarkTask(int order) throws StitchException {
         if (tasks.size() == 0) {
             throw new StitchException("OOPS! no more task to unmark.");
-        } 
-        
+        }
+
         if (order < 0 || order >= tasks.size()) {
             throw new StitchException("OOPS! the number is invalid.");
         }
 
         tasks.get(order).markAsUnDone();
-        storage.save(tasks); 
+        storage.save(tasks);
         ui.showUnmarkTask(tasks.get(order));
     }
 
@@ -63,13 +64,13 @@ public class TaskList {
             throw new StitchException("OOPS! you forget to add the deadline task");
         }
 
-        if(by.isEmpty()) {
+        if (by.isEmpty()) {
             throw new StitchException("OOPS! you forget to add the deadline date and time");
         }
 
         Task newTask = new Deadline(description, by);
         tasks.add(newTask);
-        storage.save(tasks); 
+        storage.save(tasks);
         ui.showAddTask(newTask, tasks.size());
     }
 
@@ -86,7 +87,7 @@ public class TaskList {
 
         Task newTask = new Event(description, from, to);
         tasks.add(newTask);
-        storage.save(tasks); 
+        storage.save(tasks);
         ui.showAddTask(newTask, tasks.size());
     }
 
@@ -97,23 +98,23 @@ public class TaskList {
         if (order < 0 || order >= tasks.size()) {
             throw new StitchException("OOPS! the number is invalid.");
         }
-        
+
         Task deletedTask = tasks.get(order);
         tasks.remove(order);
-        storage.save(tasks); 
+        storage.save(tasks);
         ui.showDeleteTask(deletedTask, tasks.size());
     }
 
     public void SameDateTask(String date) throws StitchException {
         if (tasks.size() == 0) {
             throw new StitchException("OOPS! no tasks currently.");
-        } 
+        }
 
         DateTimeFormatter INPUT = DateTimeFormatter.ofPattern("yyyy-M-d");
         DateTimeFormatter OUTPUT = DateTimeFormatter.ofPattern("MMM dd yyyy");
         LocalDate searchDate;
         boolean present = false;
-        
+
         try {
             searchDate = LocalDate.parse(date, INPUT);
         } catch (DateTimeParseException e) {
@@ -123,7 +124,6 @@ public class TaskList {
         System.out.println("     ______________________________");
         System.out.println("     Got it. Tasks on " + searchDate.format(OUTPUT) + ":");
 
-
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i) instanceof Deadline) {
                 LocalDate taskDate = ((Deadline) tasks.get(i)).by.toLocalDate();
@@ -131,21 +131,36 @@ public class TaskList {
                     present = true;
                     System.out.println("     " + tasks.get(i).toString());
                 }
-            
+
             } else if (tasks.get(i) instanceof Event) {
                 LocalDate from = ((Event) tasks.get(i)).from.toLocalDate();
                 LocalDate to = ((Event) tasks.get(i)).to.toLocalDate();
-                if (from.equals(searchDate) || to.equals(searchDate) || (searchDate.isAfter(from) && searchDate.isBefore(to))) {
+                if (from.equals(searchDate) || to.equals(searchDate)
+                        || (searchDate.isAfter(from) && searchDate.isBefore(to))) {
                     present = true;
                     System.out.println("     " + tasks.get(i).toString());
                 }
             } else {
                 continue;
-            }      
+            }
         }
         if (present != true) {
             System.out.println("     YAYYY no tasks!!");
         }
         System.out.println("     ______________________________");
+    }
+
+    public void findTask(String keyword) throws StitchException {
+        if (tasks.size() == 0) {
+            throw new StitchException("OOPS! no tasks currently.");
+        }
+
+        ArrayList<Task> matches = new ArrayList<Task>();
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).description.toLowerCase().contains(keyword.toLowerCase())) {
+                matches.add(tasks.get(i));
+            }
+        }
+        ui.showFindTask(matches);
     }
 }
