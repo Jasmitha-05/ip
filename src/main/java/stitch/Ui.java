@@ -1,3 +1,4 @@
+package stitch;
 import java.util.ArrayList;
 
 public class Ui {

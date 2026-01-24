@@ -1,3 +1,4 @@
+package stitch;
 import java.util.Scanner;
 
 public class Stitch {

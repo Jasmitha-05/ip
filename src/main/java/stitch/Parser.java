@@ -1,3 +1,4 @@
+package stitch;
 public class Parser {
 
     public static String[] parse(String userInput) throws StitchException {
