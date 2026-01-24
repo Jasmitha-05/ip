@@ -200,4 +200,18 @@ public class TaskList {
         }
         System.out.println("     ______________________________");
     }
+
+    public void findTask(String keyword) throws StitchException {
+        if (tasks.size() == 0) {
+            throw new StitchException("OOPS! no tasks currently.");
+        }
+
+        ArrayList<Task> matches = new ArrayList<Task>();
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).description.toLowerCase().contains(keyword.toLowerCase())) {
+                matches.add(tasks.get(i));
+            }
+        }
+        ui.showFindTask(matches);
+    }
 }

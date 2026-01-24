@@ -31,6 +31,7 @@ public class Stitch {
                     case "event" -> taskList.eventTask(parsedInput[1], parsedInput[2], parsedInput[3]);
                     case "delete" -> taskList.deleteTask(Integer.parseInt(parsedInput[1]));
                     case "search" -> taskList.sameDateTask(parsedInput[1]);
+                    case "find" -> taskList.findTask(parsedInput[1]);
                     case "bye" -> {
                         ui.showBye();
                         scanner.close();

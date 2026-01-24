@@ -94,6 +94,14 @@ public class Parser {
             return new String[] { "bye" };
         }
 
+        else if (userInput.startsWith("find")) {
+            String removeToDOString = userInput.replaceFirst("find", "").trim();
+            if (removeToDOString.isEmpty()) {
+                throw new StitchException("OOPS! did you forget to add the search keyword?");
+            }
+            return new String[] { "find", removeToDOString };
+        }
+
         else {
             throw new StitchException("I'm sorry, I don't understand.");
         }

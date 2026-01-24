@@ -113,4 +113,17 @@ public class Ui {
         }
         System.out.println("     ______________________________");
     }
+
+    public void showFindTask(ArrayList<Task> matches) {
+        System.out.println("     ______________________________");
+        if (matches.isEmpty()) {
+            System.out.println("     No matching task and keywords!!");
+        } else {
+            System.out.println("     Here are the matching tasks in your list:");
+            for (int i = 0; i < matches.size(); i++) {
+                System.out.println("     " + (i + 1) + ". " + matches.get(i).toString());
+            }
+        }
+        System.out.println("     ______________________________");
+    }
 }
