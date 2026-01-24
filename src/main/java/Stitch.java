@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -39,6 +42,8 @@ public class Stitch {
                     numOfTasks = EventTask(tasks, userInput, numOfTasks, storage);
                 } else if (userInput.startsWith("delete")) {
                     numOfTasks = DeleteTask(tasks, userInput, numOfTasks, storage);
+                } else if (userInput.startsWith("search")) {
+                    SameDateTask(tasks, userInput, numOfTasks);
                 } else {
                     throw new StitchException("I'm sorry, I don't understand.");
                 }
@@ -212,5 +217,55 @@ public class Stitch {
             } catch (NumberFormatException e) {
                 throw new StitchException("OOPS! not a valid number. Maybe it's a mistake?");
             }
-    }    
+    }
+    
+    private static void SameDateTask(ArrayList<Task> tasks, String userInput, int numOfTasks) throws StitchException {
+        if (numOfTasks == 0) {
+            throw new StitchException("OOPS! no tasks currently.");
+        } 
+
+        String removeToDOString = userInput.replaceFirst("search", "").trim();
+        DateTimeFormatter INPUT = DateTimeFormatter.ofPattern("yyyy-M-d");
+        DateTimeFormatter OUTPUT = DateTimeFormatter.ofPattern("MMM dd yyyy");
+        LocalDate searchDate;
+        boolean present = false;
+        
+        if (removeToDOString.isEmpty()) {
+            throw new StitchException("OOPS! you forgot to add the date");
+        }
+        
+        try {
+            searchDate = LocalDate.parse(removeToDOString, INPUT);
+        } catch (DateTimeParseException e) {
+            throw new StitchException("OOPS! wrong format, use format: yyyy-M-d");
+        }
+
+        System.out.println("     ______________________________");
+        System.out.println("     Got it. Tasks on " + searchDate.format(OUTPUT) + ":");
+
+
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i) instanceof Deadline) {
+                LocalDate date = ((Deadline) tasks.get(i)).by.toLocalDate();
+                if (date.equals(searchDate)) {
+                    present = true;
+                    System.out.println("     " + tasks.get(i).toString());
+                }
+            
+            } else if (tasks.get(i) instanceof Event) {
+                LocalDate from = ((Event) tasks.get(i)).from.toLocalDate();
+                LocalDate to = ((Event) tasks.get(i)).to.toLocalDate();
+                if (from.equals(searchDate) || to.equals(searchDate) || (searchDate.isAfter(from) && searchDate.isBefore(to))) {
+                    present = true;
+                    System.out.println("     " + tasks.get(i).toString());
+                }
+            } else {
+                continue;
+            }      
+        }
+        if (present != true) {
+            System.out.println("     YAYYY no tasks!!");
+        }
+        System.out.println("     ______________________________");
+    }
 }
