@@ -12,18 +12,14 @@ public class Stitch {
         ArrayList<Task> tasks = storage.load();
         int numOfTasks = tasks.size();
 
-        System.out.println("     ______________________________"); //Greet
-        System.out.println("     Hello! I'm " + chatBotName);
-        System.out.println("     What can I do for you?");
-        System.out.println("     ______________________________");
+        Ui ui = new Ui();
+        ui.showGreet(chatBotName);
 
         while(true) {
             String userInput = scanner.nextLine().trim();
 
             if (userInput.equalsIgnoreCase("bye")) { //Exit
-                System.out.println("     ______________________________");
-                System.out.println("     Bye. Hope to see you again soon!");
-                System.out.println("     ______________________________");
+                ui.showBye();
                 break;
             }
             
@@ -48,29 +44,15 @@ public class Stitch {
                     throw new StitchException("I'm sorry, I don't understand.");
                 }
             } catch (StitchException e) {
-                System.out.println("     ______________________________");
-                System.out.println("     " + e.getMessage());
-                System.out.println("     ______________________________");
-
-                }
+                ui.showErrorMessage(e.getMessage());
             }
-
+        }
          scanner.close();
     }
 
     private static void DisplayAllTasks(ArrayList<Task> tasks, int numOfTasks) {
-        System.out.println("     ______________________________");
-        if (numOfTasks == 0) {
-            System.out.println("     Good job! You have no more tasks.");
-        } else {
-            System.out.println("     Here are the tasks in your list:");
-            int order = 1;
-            for (int i = 0; i < tasks.size(); i++) {
-                System.out.println("     " + order + ". " + tasks.get(i).toString());
-                order++;
-            }
-        }
-            System.out.println("     ______________________________");
+        Ui ui = new Ui();
+        ui.showAllTask(tasks, numOfTasks);
     }
 
     private static int MarkTask(ArrayList<Task> tasks, String userInput, int numOfTasks, Storage storage) throws StitchException {
@@ -89,10 +71,8 @@ public class Stitch {
             tasks.get(order).markAsDone();
             storage.save(tasks); 
 
-            System.out.println("     ______________________________");
-            System.out.println("     Nice! I've marked this task as done:");
-            System.out.println("     " + tasks.get(order).toString());
-            System.out.println("     ______________________________");
+            Ui ui = new Ui();
+            ui.showMarkTask(tasks.get(order));
             return numOfTasks;
 
             } catch (NumberFormatException e) {
@@ -115,10 +95,8 @@ public class Stitch {
             tasks.get(order).markAsUnDone();
             storage.save(tasks); 
 
-            System.out.println("     ______________________________");
-            System.out.println("     OK, I've marked this task as not done yet:");
-            System.out.println("     " + tasks.get(order).toString());
-            System.out.println("     ______________________________");
+            Ui ui = new Ui();
+            ui.showUnmarkTask(tasks.get(order));
             return numOfTasks;
 
             } catch (NumberFormatException e) {
@@ -137,11 +115,8 @@ public class Stitch {
         tasks.add(newTask);
         storage.save(tasks); 
         numOfTasks++;
-        System.out.println("     ______________________________");
-        System.out.println("     Got it. I've added this task:");
-        System.out.println("     " + newTask.toString());
-        System.out.println("     Now you have " + (tasks.size()) + " tasks in the list.");
-        System.out.println("     ______________________________");
+        Ui ui = new Ui();
+        ui.showAddTask(newTask, tasks.size());
         return tasks.size();
     }
 
@@ -157,11 +132,8 @@ public class Stitch {
         tasks.add(newTask);
         storage.save(tasks); 
         numOfTasks++;
-        System.out.println("     ______________________________");
-        System.out.println("     Got it. I've added this task:");
-        System.out.println("     " + newTask.toString());
-        System.out.println("     Now you have " + (tasks.size()) + " tasks in the list.");
-        System.out.println("     ______________________________");
+        Ui ui = new Ui();
+        ui.showAddTask(newTask, tasks.size());
         return tasks.size();
     }
 
@@ -177,11 +149,8 @@ public class Stitch {
         tasks.add(newTask);
         storage.save(tasks); 
         numOfTasks++;
-        System.out.println("     ______________________________");
-        System.out.println("     Got it. I've added this task:");
-        System.out.println("     " + newTask.toString());
-        System.out.println("     Now you have " + (tasks.size()) + " tasks in the list.");
-        System.out.println("     ______________________________");
+        Ui ui = new Ui();
+        ui.showAddTask(newTask, tasks.size());
         return tasks.size();
     }
 
@@ -206,12 +175,8 @@ public class Stitch {
             tasks.remove(order);
             storage.save(tasks); 
             numOfTasks--;
-                    
-            System.out.println("     ______________________________");
-            System.out.println("     Noted. I've removed this task:");
-            System.out.println("     " + deletedTask.toString());
-            System.out.println("     Now you have " + tasks.size() + " tasks in the list.");
-            System.out.println("     ______________________________");
+            Ui ui = new Ui();
+            ui.showDeleteTask(deletedTask, tasks.size());
             return tasks.size();
 
             } catch (NumberFormatException e) {
