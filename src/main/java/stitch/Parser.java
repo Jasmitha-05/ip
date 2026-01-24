@@ -43,6 +43,7 @@ public class Parser {
 
         else if (userInput.startsWith("todo")) {
             String removeToDOString = userInput.replaceFirst("todo", "").trim();
+
             if (removeToDOString.isEmpty()) {
                 throw new StitchException("OOPS! did you forget to add the name of the todo task?");
             }
@@ -51,6 +52,7 @@ public class Parser {
 
         else if (userInput.startsWith("deadline")) {
             String[] removeToDOString = userInput.replaceFirst("deadline ", "").split(" /by");
+
             if (removeToDOString.length < 2 || removeToDOString[0].trim().isEmpty()
                     || removeToDOString[1].trim().isEmpty()) {
                 throw new StitchException("OOPS! did you forget to add the name/date/time of the deadline task?");
@@ -59,7 +61,9 @@ public class Parser {
         }
 
         else if (userInput.startsWith("event")) {
-            String[] removeToDOString = userInput.replaceFirst("event ", "").split(" /from| /to");
+            String[] removeToDOString = userInput.replaceFirst("event ", "")
+                    .split(" /from| /to");
+
             if (removeToDOString.length < 3 || removeToDOString[0].trim().isEmpty()
                     || removeToDOString[1].trim().isEmpty() || removeToDOString[2].trim().isEmpty()) {
                 throw new StitchException("OOPS! did you forget to add the name/date/timing of the event task?");

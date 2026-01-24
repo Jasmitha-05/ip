@@ -22,7 +22,7 @@ public class TaskList {
         this.tasks = storage.load();
     }
 
-    public void DisplayAllTasks() {
+    public void displayAllTasks() {
         ui.showAllTask(tasks, tasks.size());
     }
 
@@ -32,7 +32,7 @@ public class TaskList {
      * @param order indicates the position of the task in the list (1-indexed).
      * @throws StitchException if invalid order or no tasks available.
      */
-    public void MarkTask(int order) throws StitchException {
+    public void markTask(int order) throws StitchException {
         if (tasks.size() == 0) {
             throw new StitchException("OOPS! no more task to mark.");
         }
@@ -52,7 +52,7 @@ public class TaskList {
      * @param order indicates the position of the task in the list (1-indexed).
      * @throws StitchException if invalid order or no tasks available.
      */
-    public void UnmarkTask(int order) throws StitchException {
+    public void unmarkTask(int order) throws StitchException {
         if (tasks.size() == 0) {
             throw new StitchException("OOPS! no more task to unmark.");
         }
@@ -72,7 +72,7 @@ public class TaskList {
      * @param description name of the ToDo task.
      * @throws StitchException if the description is empty.
      */
-    public void ToDoTask(String description) throws StitchException {
+    public void todoTask(String description) throws StitchException {
         if (description.isEmpty()) {
             throw new StitchException("OOPS! you forgot to name the todo task");
         }
@@ -90,7 +90,7 @@ public class TaskList {
      * @param by          deadline date and time.
      * @throws StitchException if the description/by is empty.
      */
-    public void DeadlineTask(String description, String by) throws StitchException {
+    public void deadlineTask(String description, String by) throws StitchException {
         if (description.isEmpty()) {
             throw new StitchException("OOPS! you forget to add the deadline task");
         }
@@ -113,7 +113,7 @@ public class TaskList {
      * @param to          end date and time of the Event task.
      * @throws StitchException if the description/from/to is empty.
      */
-    public void EventTask(String description, String from, String to) throws StitchException {
+    public void eventTask(String description, String from, String to) throws StitchException {
         if (description.isEmpty()) {
             throw new StitchException("OOPS! you forget to add the event task");
         }
@@ -136,7 +136,7 @@ public class TaskList {
      * @param order indicates the position of the task in the list (1-indexed).
      * @throws StitchException if invalid order or no tasks available.
      */
-    public void DeleteTask(int order) throws StitchException {
+    public void deleteTask(int order) throws StitchException {
         if (tasks.size() == 0) {
             throw new StitchException("OOPS! no task to delete.");
         }
@@ -156,24 +156,24 @@ public class TaskList {
      * @param date search for tasks on that date (format: yyyy-M-d).
      * @throws StitchException if not tasks or wrong date format.
      */
-    public void SameDateTask(String date) throws StitchException {
+    public void sameDateTask(String date) throws StitchException {
         if (tasks.size() == 0) {
             throw new StitchException("OOPS! no tasks currently.");
         }
 
-        DateTimeFormatter INPUT = DateTimeFormatter.ofPattern("yyyy-M-d");
-        DateTimeFormatter OUTPUT = DateTimeFormatter.ofPattern("MMM dd yyyy");
+        DateTimeFormatter input = DateTimeFormatter.ofPattern("yyyy-M-d");
+        DateTimeFormatter output = DateTimeFormatter.ofPattern("MMM dd yyyy");
         LocalDate searchDate;
         boolean present = false;
 
         try {
-            searchDate = LocalDate.parse(date, INPUT);
+            searchDate = LocalDate.parse(date, input);
         } catch (DateTimeParseException e) {
             throw new StitchException("OOPS! wrong format, use format: yyyy-M-d");
         }
 
         System.out.println("     ______________________________");
-        System.out.println("     Got it. Tasks on " + searchDate.format(OUTPUT) + ":");
+        System.out.println("     Got it. Tasks on " + searchDate.format(output) + ":");
 
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i) instanceof Deadline) {
