@@ -15,3 +15,11 @@ bin/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# Ignore Gradle build folder
+/build/
+/out/
+
+# Ignore all JAR files
+*.jar
+
