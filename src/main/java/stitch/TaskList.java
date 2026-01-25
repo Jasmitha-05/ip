@@ -37,7 +37,7 @@ public class TaskList {
             throw new StitchException("OOPS! no more task to mark.");
         }
 
-        if (order < 0 || order >= tasks.size()) {
+        if (order < 1 || order > tasks.size()) {
             throw new StitchException("OOPS! the number is invalid.");
         }
 
@@ -57,7 +57,7 @@ public class TaskList {
             throw new StitchException("OOPS! no more task to unmark.");
         }
 
-        if (order < 0 || order >= tasks.size()) {
+        if (order < 1 || order > tasks.size()) {
             throw new StitchException("OOPS! the number is invalid.");
         }
 
@@ -140,7 +140,7 @@ public class TaskList {
         if (tasks.size() == 0) {
             throw new StitchException("OOPS! no task to delete.");
         }
-        if (order < 0 || order >= tasks.size()) {
+        if (order < 1 || order > tasks.size()) {
             throw new StitchException("OOPS! the number is invalid.");
         }
 

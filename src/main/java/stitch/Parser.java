@@ -22,9 +22,14 @@ public class Parser {
         }
 
         else if (userInput.startsWith("mark")) {
+            String removeToDOString = userInput.replaceFirst("mark", "").trim();
+            if (removeToDOString.isEmpty()) {
+                throw new StitchException("OOPS! did you forget to add the number?");
+            }
+
             int order;
             try {
-                order = Integer.parseInt(userInput.split(" ")[1]) - 1;
+                order = Integer.parseInt(userInput.split("\\s+")[1]) - 1;
             } catch (NumberFormatException e) {
                 throw new StitchException("OOPS! not a valid number. Was it a mistake?");
             }
@@ -32,9 +37,14 @@ public class Parser {
         }
 
         else if (userInput.startsWith("unmark")) {
+            String removeToDOString = userInput.replaceFirst("unmark", "").trim();
+            if (removeToDOString.isEmpty()) {
+                throw new StitchException("OOPS! did you forget to add the number?");
+            }
+
             int order;
             try {
-                order = Integer.parseInt(userInput.split(" ")[1]) - 1;
+                order = Integer.parseInt(userInput.split("\\s+")[1]) - 1;
             } catch (NumberFormatException e) {
                 throw new StitchException("OOPS! not a valid number. Was it a mistake?");
             }
@@ -51,34 +61,41 @@ public class Parser {
         }
 
         else if (userInput.startsWith("deadline")) {
-            String[] removeToDOString = userInput.replaceFirst("deadline ", "").split(" /by");
+            String[] removeToDOString = userInput.replaceFirst("deadline ", "").split("\\s*/by\\s*");
 
             if (removeToDOString.length < 2 || removeToDOString[0].trim().isEmpty()
                     || removeToDOString[1].trim().isEmpty()) {
-                throw new StitchException("OOPS! did you forget to add the name/date/time of the deadline task?");
+                throw new StitchException("OOPS! wrong format. Use the format: deadline (task) /by (yyyy-M-d H:m)");
             }
             return new String[] { "deadline", removeToDOString[0].trim(), removeToDOString[1].trim() };
         }
 
         else if (userInput.startsWith("event")) {
-            String[] removeToDOString = userInput.replaceFirst("event ", "")
-                    .split(" /from| /to");
+            String[] removeToDOString = userInput.replaceFirst("event ", "").trim()
+                    .split("\\s*/from\\s*|\\s*/to\\s*");
 
             if (removeToDOString.length < 3 || removeToDOString[0].trim().isEmpty()
                     || removeToDOString[1].trim().isEmpty() || removeToDOString[2].trim().isEmpty()) {
-                throw new StitchException("OOPS! did you forget to add the name/date/timing of the event task?");
+                throw new StitchException(
+                        "OOPS! wrong format. Use the format: event (task) /from (yyyy-M-d H:m) /to (yyyy-M-d H:m)");
             }
             return new String[] { "event", removeToDOString[0].trim(), removeToDOString[1].trim(),
                     removeToDOString[2].trim() };
         }
 
         else if (userInput.startsWith("delete")) {
+            String removeToDOString = userInput.replaceFirst("delete", "").trim();
+            if (removeToDOString.isEmpty()) {
+                throw new StitchException("OOPS! did you forget to add the number?");
+            }
+
             int order;
             try {
-                order = Integer.parseInt(userInput.split(" ")[1]) - 1;
+                order = Integer.parseInt(userInput.split("\\s+")[1]) - 1;
             } catch (NumberFormatException e) {
                 throw new StitchException("OOPS! not a valid number. Maybe it's a mistake?");
             }
+
             return new String[] { "delete", String.valueOf(order) };
         }
 
