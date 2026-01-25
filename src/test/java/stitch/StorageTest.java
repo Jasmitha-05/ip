@@ -14,6 +14,9 @@ import java.io.FileWriter;
 
 import java.util.ArrayList;
 
+/**
+ * Test non-trivial methods in Storage class just JUnit and Gradle
+ */
 public class StorageTest {
     private static final String PATH = "./data/stitch.txt";
 
