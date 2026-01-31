@@ -114,6 +114,11 @@ public class Ui {
         System.out.println("     ______________________________");
     }
 
+    /**
+     * Ui message to display all matching tasks with the given keyword by user.
+     * 
+     * @param matches list of tasks containing all tasks with the matching keyword.
+     */
     public void showFindTask(ArrayList<Task> matches) {
         System.out.println("     ______________________________");
         if (matches.isEmpty()) {

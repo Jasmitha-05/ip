@@ -1,7 +1,5 @@
 package stitch;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -11,8 +9,9 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-
 import java.util.ArrayList;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * Test non-trivial methods in Storage class just JUnit and Gradle

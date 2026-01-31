@@ -19,11 +19,9 @@ public class Parser {
 
         if (userInput.equalsIgnoreCase("list")) {
             return new String[] { "list" };
-        }
-
-        else if (userInput.startsWith("mark")) {
-            String removeToDOString = userInput.replaceFirst("mark", "").trim();
-            if (removeToDOString.isEmpty()) {
+        } else if (userInput.startsWith("mark")) {
+            String removeToDoString = userInput.replaceFirst("mark", "").trim();
+            if (removeToDoString.isEmpty()) {
                 throw new StitchException("OOPS! did you forget to add the number?");
             }
 
@@ -34,11 +32,9 @@ public class Parser {
                 throw new StitchException("OOPS! not a valid number. Was it a mistake?");
             }
             return new String[] { "mark", String.valueOf(order) };
-        }
-
-        else if (userInput.startsWith("unmark")) {
-            String removeToDOString = userInput.replaceFirst("unmark", "").trim();
-            if (removeToDOString.isEmpty()) {
+        } else if (userInput.startsWith("unmark")) {
+            String removeToDoString = userInput.replaceFirst("unmark", "").trim();
+            if (removeToDoString.isEmpty()) {
                 throw new StitchException("OOPS! did you forget to add the number?");
             }
 
@@ -49,43 +45,35 @@ public class Parser {
                 throw new StitchException("OOPS! not a valid number. Was it a mistake?");
             }
             return new String[] { "unmark", String.valueOf(order) };
-        }
+        } else if (userInput.startsWith("todo")) {
+            String removeToDoString = userInput.replaceFirst("todo", "").trim();
 
-        else if (userInput.startsWith("todo")) {
-            String removeToDOString = userInput.replaceFirst("todo", "").trim();
-
-            if (removeToDOString.isEmpty()) {
+            if (removeToDoString.isEmpty()) {
                 throw new StitchException("OOPS! did you forget to add the name of the todo task?");
             }
-            return new String[] { "todo", removeToDOString };
-        }
+            return new String[] { "todo", removeToDoString };
+        } else if (userInput.startsWith("deadline")) {
+            String[] removeToDoString = userInput.replaceFirst("deadline ", "").split("\\s*/by\\s*");
 
-        else if (userInput.startsWith("deadline")) {
-            String[] removeToDOString = userInput.replaceFirst("deadline ", "").split("\\s*/by\\s*");
-
-            if (removeToDOString.length < 2 || removeToDOString[0].trim().isEmpty()
-                    || removeToDOString[1].trim().isEmpty()) {
+            if (removeToDoString.length < 2 || removeToDoString[0].trim().isEmpty()
+                    || removeToDoString[1].trim().isEmpty()) {
                 throw new StitchException("OOPS! wrong format. Use the format: deadline (task) /by (yyyy-M-d H:m)");
             }
-            return new String[] { "deadline", removeToDOString[0].trim(), removeToDOString[1].trim() };
-        }
-
-        else if (userInput.startsWith("event")) {
-            String[] removeToDOString = userInput.replaceFirst("event ", "").trim()
+            return new String[] { "deadline", removeToDoString[0].trim(), removeToDoString[1].trim() };
+        } else if (userInput.startsWith("event")) {
+            String[] removeToDoString = userInput.replaceFirst("event ", "").trim()
                     .split("\\s*/from\\s*|\\s*/to\\s*");
 
-            if (removeToDOString.length < 3 || removeToDOString[0].trim().isEmpty()
-                    || removeToDOString[1].trim().isEmpty() || removeToDOString[2].trim().isEmpty()) {
+            if (removeToDoString.length < 3 || removeToDoString[0].trim().isEmpty()
+                    || removeToDoString[1].trim().isEmpty() || removeToDoString[2].trim().isEmpty()) {
                 throw new StitchException(
                         "OOPS! wrong format. Use the format: event (task) /from (yyyy-M-d H:m) /to (yyyy-M-d H:m)");
             }
-            return new String[] { "event", removeToDOString[0].trim(), removeToDOString[1].trim(),
-                    removeToDOString[2].trim() };
-        }
-
-        else if (userInput.startsWith("delete")) {
-            String removeToDOString = userInput.replaceFirst("delete", "").trim();
-            if (removeToDOString.isEmpty()) {
+            return new String[] { "event", removeToDoString[0].trim(), removeToDoString[1].trim(),
+                    removeToDoString[2].trim() };
+        } else if (userInput.startsWith("delete")) {
+            String removeToDoString = userInput.replaceFirst("delete", "").trim();
+            if (removeToDoString.isEmpty()) {
                 throw new StitchException("OOPS! did you forget to add the number?");
             }
 
@@ -97,29 +85,21 @@ public class Parser {
             }
 
             return new String[] { "delete", String.valueOf(order) };
-        }
-
-        else if (userInput.startsWith("search")) {
-            String removeToDOString = userInput.replaceFirst("search", "").trim();
-            if (removeToDOString.isEmpty()) {
+        } else if (userInput.startsWith("search")) {
+            String removeToDoString = userInput.replaceFirst("search", "").trim();
+            if (removeToDoString.isEmpty()) {
                 throw new StitchException("OOPS! did you forget to add the search date?");
             }
-            return new String[] { "search", removeToDOString };
-        }
-
-        else if (userInput.equalsIgnoreCase("bye")) {
+            return new String[] { "search", removeToDoString };
+        } else if (userInput.equalsIgnoreCase("bye")) {
             return new String[] { "bye" };
-        }
-
-        else if (userInput.startsWith("find")) {
-            String removeToDOString = userInput.replaceFirst("find", "").trim();
-            if (removeToDOString.isEmpty()) {
+        } else if (userInput.startsWith("find")) {
+            String removeToDoString = userInput.replaceFirst("find", "").trim();
+            if (removeToDoString.isEmpty()) {
                 throw new StitchException("OOPS! did you forget to add the search keyword?");
             }
-            return new String[] { "find", removeToDOString };
-        }
-
-        else {
+            return new String[] { "find", removeToDoString };
+        } else {
             throw new StitchException("I'm sorry, I don't understand.");
         }
     }
