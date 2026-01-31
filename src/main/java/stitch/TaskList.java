@@ -16,6 +16,13 @@ public class TaskList {
     private Storage storage;
     private Ui ui;
 
+    /**
+     * Constructs a TaskList with Ui and Storage
+     * Loads tasks that was previously saved
+     * 
+     * @param ui      handles user interface messages
+     * @param storage handles loading and saving of tasks
+     */
     public TaskList(Ui ui, Storage storage) {
         this.ui = ui;
         this.storage = storage;
@@ -68,7 +75,7 @@ public class TaskList {
 
     /**
      * Adds a ToDo task to the task list.
-     *
+     * 
      * @param description name of the ToDo task.
      * @throws StitchException if the description is empty.
      */
@@ -201,6 +208,12 @@ public class TaskList {
         System.out.println("     ______________________________");
     }
 
+    /**
+     * Finds and displays tasks that match the input keyword.
+     * 
+     * @param keyword keyword to search in task descriptions.
+     * @throws StitchException if no tasks available.
+     */
     public void findTask(String keyword) throws StitchException {
         if (tasks.size() == 0) {
             throw new StitchException("OOPS! no tasks currently.");

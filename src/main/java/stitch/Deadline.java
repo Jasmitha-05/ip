@@ -11,6 +11,13 @@ import java.time.format.DateTimeParseException;
 public class Deadline extends Task {
     protected LocalDateTime by;
 
+    /**
+     * Constructs a Deadline object with given description and date&time.
+     * 
+     * @param description title of the Deadline task.
+     * @param by          due date and time.
+     * @throws StitchException if date and time is invalid format.
+     */
     public Deadline(String description, String by) throws StitchException {
         super(description);
         try {

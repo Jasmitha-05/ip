@@ -5,7 +5,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-
 import java.util.ArrayList;
 
 /**
@@ -14,13 +13,13 @@ import java.util.ArrayList;
  */
 public class Storage {
     private String path = "./data/stitch.txt";
-    String text;
+    private String text;
 
     /**
      * Returns an ArrayList of Tasks loaded from the stitch file that was previously
      * saved.
-     * 
-     * @return ArrayList<Task> tasks containing all tasks loaded from stitch file.
+     *
+     * @return list of tasks containing all tasks loaded from stitch file.
      */
     public ArrayList<Task> load() {
         ArrayList<Task> tasks = new ArrayList<Task>();
@@ -46,7 +45,7 @@ public class Storage {
     /**
      * Saves the current list of tasks to the stitch file.
      * 
-     * @param tasks ArrayList<Task> containing all tasks in the current list to be
+     * @param tasks list containing all tasks in the current list to be
      *              saved locally on disk.
      */
     public void save(ArrayList<Task> tasks) {

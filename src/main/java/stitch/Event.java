@@ -12,6 +12,14 @@ public class Event extends Task {
     protected LocalDateTime from;
     protected LocalDateTime to;
 
+    /**
+     * Constructs an Event object with given description, from and to date and time.
+     * 
+     * @param description title of the Event task.
+     * @param from        starting date and time of the event.
+     * @param to          ending date and time of the event.
+     * @throws StitchException if date and time is invalid format.
+     */
     public Event(String description, String from, String to) throws StitchException {
         super(description);
         try {
