@@ -21,6 +21,12 @@ public class Stitch {
         return ui;
     }    
 
+    /**
+     * Handles user input and executes commands based on the parsed input.
+     * 
+     * @param userInput the input string from the user
+     * @return the response string to be displayed
+     */
     public String getResponse(String userInput) {
         try {
             String[] parsedInput = Parser.parse(userInput);
