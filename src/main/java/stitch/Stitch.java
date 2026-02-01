@@ -9,7 +9,6 @@ import java.util.Scanner;
  */
 public class Stitch {
 
-    private static final String CHATBOT_NAME = "Stitch";
     private final Storage storage;
     private final Ui ui;
     private final TaskList taskList;
