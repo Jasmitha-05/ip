@@ -8,60 +8,48 @@ import java.util.Scanner;
  * unmark, add, delete, search, bye).
  */
 public class Stitch {
-    public static void main(String[] args) {
-        String chatBotName = "Stitch";
-        Scanner scanner = new Scanner(System.in);
-        Storage storage = new Storage();
-        Ui ui = new Ui();
-        TaskList taskList = new TaskList(ui, storage);
 
-        ui.showGreet(chatBotName);
+    private static final String CHATBOT_NAME = "Stitch";
+    private final Storage storage;
+    private final Ui ui;
+    private final TaskList taskList;
 
-        while (true) {
+    public Stitch() {
+        this.ui = new Ui();
+        this.storage = new Storage();
+        this.taskList = new TaskList(ui, storage);
+    }
 
-            String userInput = scanner.nextLine().trim();
-            try {
-                String[] parsedInput = Parser.parse(userInput);
-                switch (parsedInput[0]) {
-                case "list":
-                    taskList.displayAllTasks();
-                    break;
-                case "mark":
-                    taskList.markTask(Integer.parseInt(parsedInput[1]));
-                    break;
-                case "unmark":
-                    taskList.unmarkTask(Integer.parseInt(parsedInput[1]));
-                    break;
-                case "todo":
-                    taskList.todoTask(parsedInput[1]);
-                    break;
-                case "deadline":
-                    taskList.deadlineTask(parsedInput[1], parsedInput[2]);
-                    break;
-                case "event":
-                    taskList.eventTask(parsedInput[1], parsedInput[2], parsedInput[3]);
-                    break;
-                case "delete":
-                    taskList.deleteTask(Integer.parseInt(parsedInput[1]));
-                    break;
-                case "search":
-                    taskList.sameDateTask(parsedInput[1]);
-                    break;
-                case "find":
-                    taskList.findTask(parsedInput[1]);
-                    break;
-                case "bye": {
-                    ui.showBye();
-                    scanner.close();
-                    return;
-                }
-                default:
-                    ui.showErrorMessage("I'm sorry, I don't understand.");
-                    break;
-                }
-            } catch (StitchException e) {
-                ui.showErrorMessage(e.getMessage());
+    public String getResponse(String userInput) {
+        try {
+            String[] parsedInput = Parser.parse(userInput);
+
+            switch (parsedInput[0]) {
+            case "list":
+                return taskList.displayAllTasks();
+            case "mark":
+                return taskList.markTask(Integer.parseInt(parsedInput[1]));
+            case "unmark":
+                return taskList.unmarkTask(Integer.parseInt(parsedInput[1]));
+            case "todo":
+                return taskList.todoTask(parsedInput[1]);
+            case "deadline":
+                return taskList.deadlineTask(parsedInput[1], parsedInput[2]);
+            case "event":
+                return taskList.eventTask(parsedInput[1], parsedInput[2], parsedInput[3]);
+            case "delete":
+                return taskList.deleteTask(Integer.parseInt(parsedInput[1]));
+            case "search":
+                return taskList.sameDateTask(parsedInput[1]);
+            case "find":
+                return taskList.findTask(parsedInput[1]);
+            case "bye":
+                return ui.showBye();
+            default:
+                return ui.showErrorMessage("I'm sorry, I don't understand.");
             }
+        } catch (StitchException e) {
+            return ui.showErrorMessage(e.getMessage());
         }
     }
 }
