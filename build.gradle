@@ -48,7 +48,7 @@ test {
 }
 
 application {
-    mainClass.set("stitch.Stitch")
+    mainClass.set("Launcher")
 }
 
 shadowJar {
