@@ -28,7 +28,13 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     public void initialize() {
-        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());      
+    }
+
+    public void showGreeting() {
+        String greeting = stitch.getUi().showGreet();
+        dialogContainer.getChildren().add(
+                DialogBox.getDukeDialog(greeting, stitchImage));
     }
 
     /** Injects the Stitch instance */

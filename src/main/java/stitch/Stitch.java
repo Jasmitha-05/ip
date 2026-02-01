@@ -17,6 +17,10 @@ public class Stitch {
         this.taskList = new TaskList(ui, storage);
     }
 
+    public Ui getUi() {
+        return ui;
+    }    
+
     public String getResponse(String userInput) {
         try {
             String[] parsedInput = Parser.parse(userInput);
