@@ -10,33 +10,30 @@ public class Ui {
     /**
      * Ui message to greet user when chatbot is first started.
      * 
-     * @param chatBotName Name of the chatbot is Stitch
+     * @return Greeting message.
      */
-    public void showGreet(String chatBotName) {
-        System.out.println("     ______________________________"); // Greet
-        System.out.println("     Hello! I'm " + chatBotName);
-        System.out.println("     What can I do for you?");
-        System.out.println("     ______________________________");
+    public String showGreet() {
+        return "Hello! I'm Stitch\n"
+                + "What can I do for you?\n";
     }
 
     /**
-     * Ui message to bid farewell when user wants to exit.
+     * Messages a farewell when user wants to exit.
+     * 
+     * @return Farewell message.
      */
-    public void showBye() {
-        System.out.println("     ______________________________");
-        System.out.println("     Bye. Hope to see you again soon!");
-        System.out.println("     ______________________________");
+    public String showBye() {
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
      * Ui message to display all error messages to user.
      * 
      * @param message Error message to be displayed.
+     * @return Error message.
      */
-    public void showErrorMessage(String message) {
-        System.out.println("     ______________________________");
-        System.out.println("     " + message);
-        System.out.println("     ______________________________");
+    public String showErrorMessage(String message) {
+        return message;
     }
 
     /**
@@ -45,13 +42,12 @@ public class Ui {
      * 
      * @param task       The task being added.
      * @param numOfTasks The total number of tasks in the list.
+     * @return The message to be displayed.
      */
-    public void showAddTask(Task task, int numOfTasks) {
-        System.out.println("     ______________________________");
-        System.out.println("     Got it. I've added this task:");
-        System.out.println("     " + task.toString());
-        System.out.println("     Now you have " + (numOfTasks) + " tasks in the list.");
-        System.out.println("     ______________________________");
+    public String showAddTask(Task task, int numOfTasks) {
+        return "Got it. I've added this task:\n"
+                + task.toString() + "\n"
+                + "Now you have " + (numOfTasks) + " tasks in the list.";
     }
 
     /**
@@ -60,37 +56,34 @@ public class Ui {
      * 
      * @param task       The task being deleted.
      * @param numOfTasks The total number of tasks in the list.
+     * @return The message to be displayed.
      */
-    public void showDeleteTask(Task task, int numOfTasks) {
-        System.out.println("     ______________________________");
-        System.out.println("     Noted. I've removed this task:");
-        System.out.println("     " + task.toString());
-        System.out.println("     Now you have " + (numOfTasks) + " tasks in the list.");
-        System.out.println("     ______________________________");
+    public String showDeleteTask(Task task, int numOfTasks) {
+        return "Noted. I've removed this task:\n"
+                + task.toString() + "\n"
+                + "Now you have " + (numOfTasks) + " tasks in the list.";
     }
 
     /**
      * Ui message to display the current task being marked as done
      * 
      * @param task The task being marked as done.
+     * @return The message to be displayed.
      */
-    public void showMarkTask(Task task) {
-        System.out.println("     ______________________________");
-        System.out.println("     Nice! I've marked this task as done:");
-        System.out.println("     " + task.toString());
-        System.out.println("     ______________________________");
+    public String showMarkTask(Task task) {
+        return "Nice! I've marked this task as done:\n"
+                + task.toString();
     }
 
     /**
      * Ui message to display the current task being unmarked undone.
      * 
      * @param task The task being unmarked undone.
+     * @return The message to be displayed.
      */
-    public void showUnmarkTask(Task task) {
-        System.out.println("     ______________________________");
-        System.out.println("     OK, I've marked this task as not done yet:");
-        System.out.println("     " + task.toString());
-        System.out.println("     ______________________________");
+    public String showUnmarkTask(Task task) {
+        return "OK, I've marked this task as not done yet:\n"
+                + task.toString();
     }
 
     /**
@@ -98,37 +91,43 @@ public class Ui {
      * 
      * @param tasks      The ArrayList of tasks in the list.
      * @param numOfTasks The total number of tasks in the list.
+     * @return The message to be displayed.
      */
-    public void showAllTask(ArrayList<Task> tasks, int numOfTasks) {
-        System.out.println("     ______________________________");
+    public String showAllTask(ArrayList<Task> tasks, int numOfTasks) {
         if (numOfTasks == 0) {
-            System.out.println("     Good job! You have no more tasks.");
+            return "Good job! You have no more tasks.";
         } else {
-            System.out.println("     Here are the tasks in your list:");
+            StringBuilder sb = new StringBuilder();
             int order = 1;
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println("     " + order + ". " + tasks.get(i).toString());
+                sb.append(order).append(". ")
+                        .append(tasks.get(i).toString())
+                        .append("\n");
                 order++;
             }
+            return "Here are the tasks in your list:\n" + sb.toString();
         }
-        System.out.println("     ______________________________");
     }
 
     /**
      * Ui message to display all matching tasks with the given keyword by user.
      * 
      * @param matches list of tasks containing all tasks with the matching keyword.
+     * @return The message to be displayed.
      */
-    public void showFindTask(ArrayList<Task> matches) {
-        System.out.println("     ______________________________");
+    public String showFindTask(ArrayList<Task> matches) {
         if (matches.isEmpty()) {
-            System.out.println("     No matching task and keywords!!");
+            return "No matching task and keywords!!";
         } else {
-            System.out.println("     Here are the matching tasks in your list:");
+            int order = 1;
+            StringBuilder sb = new StringBuilder();
             for (int i = 0; i < matches.size(); i++) {
-                System.out.println("     " + (i + 1) + ". " + matches.get(i).toString());
+                sb.append(order).append(". ")
+                        .append(matches.get(i).toString())
+                        .append("\n");
+                order++;
             }
+            return "Here are the matching tasks in your list:\n" + sb.toString();
         }
-        System.out.println("     ______________________________");
     }
 }
