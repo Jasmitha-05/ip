@@ -11,6 +11,7 @@ public class Stitch {
     private final Ui ui;
     private final TaskList taskList;
 
+    /** Constructs a Stitch instance. */
     public Stitch() {
         this.ui = new Ui();
         this.storage = new Storage();
