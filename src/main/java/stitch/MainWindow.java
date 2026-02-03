@@ -35,7 +35,7 @@ public class MainWindow extends AnchorPane {
     public void showGreeting() {
         String greeting = stitch.getUi().showGreet();
         dialogContainer.getChildren().add(
-                DialogBox.getDukeDialog(greeting, stitchImage));
+                DialogBox.getStitchDialog(greeting, stitchImage));
     }
 
     /** Injects the Stitch instance */
@@ -53,8 +53,8 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         String response = stitch.getResponse(input);
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, liloImage),
-                DialogBox.getDukeDialog(response, stitchImage));
+                DialogBox.getLiloDialog(input, liloImage),
+                DialogBox.getStitchDialog(response, stitchImage));
         userInput.clear();
     }
 }
