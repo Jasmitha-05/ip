@@ -171,14 +171,14 @@ public class TaskList {
      * @throws StitchException if not tasks or wrong date format.
      */
     public String sameDateTask(String date) throws StitchException {
+        ArrayList<Task> sameDateTasks = new ArrayList<Task>();
+
         if (tasks.size() == 0) {
             throw new StitchException("OOPS! no tasks currently.");
         }
 
         DateTimeFormatter input = DateTimeFormatter.ofPattern("yyyy-M-d");
-        DateTimeFormatter output = DateTimeFormatter.ofPattern("MMM dd yyyy");
         LocalDate searchDate;
-        boolean isPresent = false;
 
         try {
             searchDate = LocalDate.parse(date, input);
@@ -186,32 +186,25 @@ public class TaskList {
             throw new StitchException("OOPS! wrong format, use format: yyyy-M-d");
         }
 
-        StringBuilder sb = new StringBuilder("Got it. Tasks on "
-                + searchDate.format(output) + ":\n");
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i) instanceof Deadline) {
                 LocalDate taskDate = ((Deadline) tasks.get(i)).by.toLocalDate();
                 if (taskDate.equals(searchDate)) {
-                    isPresent = true;
-                    sb.append(tasks.get(i).toString()).append("\n");
+                    sameDateTasks.add(tasks.get(i));
                 }
+
             } else if (tasks.get(i) instanceof Event) {
                 LocalDate from = ((Event) tasks.get(i)).from.toLocalDate();
                 LocalDate to = ((Event) tasks.get(i)).to.toLocalDate();
                 if (from.equals(searchDate) || to.equals(searchDate)
                         || (searchDate.isAfter(from) && searchDate.isBefore(to))) {
-                    isPresent = true;
-                    sb.append(tasks.get(i).toString()).append("\n");
+                    sameDateTasks.add(tasks.get(i));
                 }
             } else {
                 continue;
             }
         }
-        if (isPresent != true) {
-            return "YAYYY no tasks!!";
-        } else {
-            return sb.toString();
-        }
+        return ui.showSameDateTask(sameDateTasks);
     }
 
     /**

@@ -130,4 +130,16 @@ public class Ui {
             return "Here are the matching tasks in your list:\n" + sb.toString();
         }
     }
+
+    public String showSameDateTask(ArrayList<Task> sameDateTasks) {
+        if (sameDateTasks.isEmpty()) {
+            return "YAYYY no tasks!!";
+        } else {
+            StringBuilder sb = new StringBuilder("Got it. Tasks on that date:\n");
+            for (int i = 0; i < sameDateTasks.size(); i++) {
+                sb.append(sameDateTasks.get(i).toString()).append("\n");
+            }
+            return sb.toString();
+        }
+    }
 }
