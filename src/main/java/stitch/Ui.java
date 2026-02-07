@@ -33,6 +33,7 @@ public class Ui {
      * @return Error message.
      */
     public String showErrorMessage(String message) {
+        assert message != null : "Error message is null";
         return message;
     }
 
@@ -45,6 +46,7 @@ public class Ui {
      * @return The message to be displayed.
      */
     public String showAddTask(Task task, int numOfTasks) {
+        assert task != null : "Task added is null";
         return "Got it. I've added this task:\n"
                 + task.toString() + "\n"
                 + "Now you have " + (numOfTasks) + " tasks in the list.";
@@ -59,6 +61,7 @@ public class Ui {
      * @return The message to be displayed.
      */
     public String showDeleteTask(Task task, int numOfTasks) {
+        assert task != null : "Task deleted is null";
         return "Noted. I've removed this task:\n"
                 + task.toString() + "\n"
                 + "Now you have " + (numOfTasks) + " tasks in the list.";
@@ -71,6 +74,7 @@ public class Ui {
      * @return The message to be displayed.
      */
     public String showMarkTask(Task task) {
+        assert task != null : "Task marked is null";
         return "Nice! I've marked this task as done:\n"
                 + task.toString();
     }
@@ -82,6 +86,7 @@ public class Ui {
      * @return The message to be displayed.
      */
     public String showUnmarkTask(Task task) {
+        assert task != null : "Task unmarked is null";
         return "OK, I've marked this task as not done yet:\n"
                 + task.toString();
     }
@@ -94,6 +99,8 @@ public class Ui {
      * @return The message to be displayed.
      */
     public String showAllTask(ArrayList<Task> tasks, int numOfTasks) {
+        assert numOfTasks == tasks.size()
+                : "numOfTasks not matching tasks.size()";
         if (numOfTasks == 0) {
             return "Good job! You have no more tasks.";
         } else {
