@@ -5,6 +5,17 @@ package stitch;
  */
 public class Parser {
 
+    private static final String LIST = "list";
+    private static final String MARK = "mark";
+    private static final String UNMARK = "unmark";
+    private static final String TODO = "todo";
+    private static final String DEADLINE = "deadline";
+    private static final String EVENT = "event";
+    private static final String DELETE = "delete";
+    private static final String SEARCH = "search";
+    private static final String FIND = "find";
+    private static final String BYE = "bye";
+
     /**
      * Returns an array of strings representing the parsed user command.
      * 
@@ -17,90 +28,107 @@ public class Parser {
     public static String[] parse(String userInput) throws StitchException {
         userInput = userInput.trim();
 
-        if (userInput.equalsIgnoreCase("list")) {
-            return new String[] { "list" };
-        } else if (userInput.startsWith("mark")) {
-            String removeToDoString = userInput.replaceFirst("mark", "").trim();
-            if (removeToDoString.isEmpty()) {
-                throw new StitchException("OOPS! did you forget to add the number?");
-            }
+        if (userInput.equalsIgnoreCase(LIST)) {
+            return parseListCommand(LIST);
+        }
+        if (userInput.equalsIgnoreCase(BYE)) {
+            return parseByeCommand(BYE);
+        }
+        if (userInput.startsWith(MARK)) {
+            return parseIndexCommand(MARK, userInput);
+        }
+        if (userInput.startsWith(UNMARK)) {
+            return parseIndexCommand(UNMARK, userInput);
+        }
+        if (userInput.startsWith(DELETE)) {
+            return parseIndexCommand(DELETE, userInput);
+        }
+        if (userInput.startsWith(TODO)) {
+            return parseTodoCommand(userInput);
+        }
+        if (userInput.startsWith(DEADLINE)) {
+            return parseDeadlineCommand(userInput);
+        }
+        if (userInput.startsWith(EVENT)) {
+            return parseEventCommand(userInput);
+        }
+        if (userInput.startsWith(SEARCH)) {
+            return parseSearchCommand(userInput);
+        }
+        if (userInput.startsWith(FIND)) {
+            return parseFindCommand(userInput);
+        }
 
-            int order;
-            try {
-                order = Integer.parseInt(userInput.split("\\s+")[1]) - 1;
-            } catch (NumberFormatException e) {
-                throw new StitchException("OOPS! not a valid number. Was it a mistake?");
-            }
-            return new String[] { "mark", String.valueOf(order) };
-        } else if (userInput.startsWith("unmark")) {
-            String removeToDoString = userInput.replaceFirst("unmark", "").trim();
-            if (removeToDoString.isEmpty()) {
-                throw new StitchException("OOPS! did you forget to add the number?");
-            }
+        throw new StitchException("I'm sorry, I don't understand.");
+    }
 
-            int order;
-            try {
-                order = Integer.parseInt(userInput.split("\\s+")[1]) - 1;
-            } catch (NumberFormatException e) {
-                throw new StitchException("OOPS! not a valid number. Was it a mistake?");
-            }
-            return new String[] { "unmark", String.valueOf(order) };
-        } else if (userInput.startsWith("todo")) {
-            String removeToDoString = userInput.replaceFirst("todo", "").trim();
+    private static String[] parseListCommand(String list) {
+        return new String[] { list };
+    }
 
-            if (removeToDoString.isEmpty()) {
-                throw new StitchException("OOPS! did you forget to add the name of the todo task?");
-            }
-            return new String[] { "todo", removeToDoString };
-        } else if (userInput.startsWith("deadline")) {
-            String[] removeToDoString = userInput.replaceFirst("deadline ", "").split("\\s*/by\\s*");
+    private static String[] parseByeCommand(String bye) {
+        return new String[] { bye };
+    }
 
-            if (removeToDoString.length < 2 || removeToDoString[0].trim().isEmpty()
-                    || removeToDoString[1].trim().isEmpty()) {
-                throw new StitchException("OOPS! wrong format. Use the format: deadline (task) /by (yyyy-M-d H:m)");
-            }
-            return new String[] { "deadline", removeToDoString[0].trim(), removeToDoString[1].trim() };
-        } else if (userInput.startsWith("event")) {
-            String[] removeToDoString = userInput.replaceFirst("event ", "").trim()
-                    .split("\\s*/from\\s*|\\s*/to\\s*");
+    private static String[] parseIndexCommand(String command, String userInput) throws StitchException {
+        String removeCommand = userInput.replaceFirst("(?i)" + command + "\\s*", "").trim();
+        checkEmpty(removeCommand, "OOPS! did you forget to add the number?");
 
-            if (removeToDoString.length < 3 || removeToDoString[0].trim().isEmpty()
-                    || removeToDoString[1].trim().isEmpty() || removeToDoString[2].trim().isEmpty()) {
-                throw new StitchException(
-                        "OOPS! wrong format. Use the format: event (task) /from (yyyy-M-d H:m) /to (yyyy-M-d H:m)");
-            }
-            return new String[] { "event", removeToDoString[0].trim(), removeToDoString[1].trim(),
-                    removeToDoString[2].trim() };
-        } else if (userInput.startsWith("delete")) {
-            String removeToDoString = userInput.replaceFirst("delete", "").trim();
-            if (removeToDoString.isEmpty()) {
-                throw new StitchException("OOPS! did you forget to add the number?");
-            }
+        int order;
+        try {
+            order = Integer.parseInt(removeCommand) - 1;
+        } catch (NumberFormatException e) {
+            throw new StitchException("OOPS! not a valid number. Was it a mistake?");
+        }
+        return new String[] { command, String.valueOf(order) };
+    }
 
-            int order;
-            try {
-                order = Integer.parseInt(userInput.split("\\s+")[1]) - 1;
-            } catch (NumberFormatException e) {
-                throw new StitchException("OOPS! not a valid number. Maybe it's a mistake?");
-            }
+    private static String[] parseTodoCommand(String userInput) throws StitchException {
+        String removeCommand = userInput.replaceFirst("(?i)" + TODO + "\\s*", "").trim();
+        checkEmpty(removeCommand, "OOPS! did you forget to add the name of the todo task?");
+        return new String[] { TODO, removeCommand };
+    }
 
-            return new String[] { "delete", String.valueOf(order) };
-        } else if (userInput.startsWith("search")) {
-            String removeToDoString = userInput.replaceFirst("search", "").trim();
-            if (removeToDoString.isEmpty()) {
-                throw new StitchException("OOPS! did you forget to add the search date?");
-            }
-            return new String[] { "search", removeToDoString };
-        } else if (userInput.equalsIgnoreCase("bye")) {
-            return new String[] { "bye" };
-        } else if (userInput.startsWith("find")) {
-            String removeToDoString = userInput.replaceFirst("find", "").trim();
-            if (removeToDoString.isEmpty()) {
-                throw new StitchException("OOPS! did you forget to add the search keyword?");
-            }
-            return new String[] { "find", removeToDoString };
-        } else {
-            throw new StitchException("I'm sorry, I don't understand.");
+    private static String[] parseDeadlineCommand(String userInput) throws StitchException {
+        String[] removeCommand = userInput.replaceFirst("(?i)" + DEADLINE + "\\s*", "")
+                .trim().split("\\s*/by\\s*");
+
+        if (removeCommand.length < 2 || removeCommand[0].trim().isEmpty()
+                || removeCommand[1].trim().isEmpty()) {
+            throw new StitchException("OOPS! wrong format. Use the format: deadline (task) /by (yyyy-M-d H:m)");
+        }
+        return new String[] { DEADLINE, removeCommand[0].trim(), removeCommand[1].trim() };
+    }
+
+    private static String[] parseEventCommand(String userInput) throws StitchException {
+        String[] removeCommand = userInput.replaceFirst("(?i)" + EVENT + "\\s*", "").trim()
+                .split("\\s*/from\\s*|\\s*/to\\s*");
+
+        if (removeCommand.length < 3 || removeCommand[0].trim().isEmpty()
+                || removeCommand[1].trim().isEmpty() || removeCommand[2].trim().isEmpty()) {
+            throw new StitchException(
+                    "OOPS! wrong format. Use the format: event (task) /from (yyyy-M-d H:m) /to (yyyy-M-d H:m)");
+        }
+        return new String[] { EVENT, removeCommand[0].trim(), removeCommand[1].trim(),
+                removeCommand[2].trim() };
+    }
+
+    private static String[] parseSearchCommand(String userInput) throws StitchException {
+        String removeCommand = userInput.replaceFirst("(?i)" + SEARCH + "\\s*", "").trim();
+        checkEmpty(removeCommand, "OOPS! did you forget to add the search date?");
+        return new String[] { SEARCH, removeCommand };
+
+    }
+
+    private static String[] parseFindCommand(String userInput) throws StitchException {
+        String removeToDoString = userInput.replaceFirst(FIND + " ", "").trim();
+        checkEmpty(removeToDoString, "OOPS! did you forget to add the keyword to find?");
+        return new String[] { FIND, removeToDoString };
+    }
+
+    private static void checkEmpty(String str, String message) throws StitchException {
+        if (str.isEmpty()) {
+            throw new StitchException(message);
         }
     }
 }
