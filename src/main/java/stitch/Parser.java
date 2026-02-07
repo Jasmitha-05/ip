@@ -15,6 +15,7 @@ public class Parser {
      * @throws StitchException If the user input is invalid or invalid command.
      */
     public static String[] parse(String userInput) throws StitchException {
+        assert userInput != null : "input is null";
         userInput = userInput.trim();
 
         if (userInput.equalsIgnoreCase("list")) {
@@ -28,6 +29,7 @@ public class Parser {
             int order;
             try {
                 order = Integer.parseInt(userInput.split("\\s+")[1]) - 1;
+                assert order >= 0 : "order cannot be negative";
             } catch (NumberFormatException e) {
                 throw new StitchException("OOPS! not a valid number. Was it a mistake?");
             }
@@ -41,6 +43,7 @@ public class Parser {
             int order;
             try {
                 order = Integer.parseInt(userInput.split("\\s+")[1]) - 1;
+                assert order >= 0 : "order cannot be negative";
             } catch (NumberFormatException e) {
                 throw new StitchException("OOPS! not a valid number. Was it a mistake?");
             }
@@ -64,6 +67,8 @@ public class Parser {
             String[] removeToDoString = userInput.replaceFirst("event ", "").trim()
                     .split("\\s*/from\\s*|\\s*/to\\s*");
 
+            assert removeToDoString != null : "Split result should not be null";
+
             if (removeToDoString.length < 3 || removeToDoString[0].trim().isEmpty()
                     || removeToDoString[1].trim().isEmpty() || removeToDoString[2].trim().isEmpty()) {
                 throw new StitchException(
@@ -80,6 +85,7 @@ public class Parser {
             int order;
             try {
                 order = Integer.parseInt(userInput.split("\\s+")[1]) - 1;
+                assert order >= 0 : "order cannot be negative";
             } catch (NumberFormatException e) {
                 throw new StitchException("OOPS! not a valid number. Maybe it's a mistake?");
             }
