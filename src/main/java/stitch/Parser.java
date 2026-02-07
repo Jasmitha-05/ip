@@ -121,9 +121,9 @@ public class Parser {
     }
 
     private static String[] parseFindCommand(String userInput) throws StitchException {
-        String removeToDoString = userInput.replaceFirst(FIND + " ", "").trim();
-        checkEmpty(removeToDoString, "OOPS! did you forget to add the keyword to find?");
-        return new String[] { FIND, removeToDoString };
+        String removeCommand = userInput.replaceFirst("(?i)" + FIND + "\\s*", "").trim();
+        checkEmpty(removeCommand, "OOPS! did you forget to add the keyword to find?");
+        return new String[] { FIND, removeCommand };
     }
 
     private static void checkEmpty(String str, String message) throws StitchException {
