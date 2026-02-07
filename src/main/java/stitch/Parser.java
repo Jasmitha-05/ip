@@ -14,6 +14,7 @@ public class Parser {
     private static final String DELETE = "delete";
     private static final String SEARCH = "search";
     private static final String FIND = "find";
+    private static final String UPCOMING = "upcoming";
     private static final String BYE = "bye";
 
     /**
@@ -58,6 +59,9 @@ public class Parser {
         }
         if (userInput.startsWith(FIND)) {
             return parseFindCommand(userInput);
+        }
+        if (userInput.startsWith(UPCOMING)) {
+            return parseUpcomingCommand(userInput);
         }
         throw new StitchException("I'm sorry, I don't understand.");
     }
@@ -124,6 +128,19 @@ public class Parser {
         String removeCommand = userInput.replaceFirst("(?i)" + FIND + "\\s*", "").trim();
         checkEmpty(removeCommand, "OOPS! did you forget to add the keyword to find?");
         return new String[] { FIND, removeCommand };
+    }
+
+    private static String[] parseUpcomingCommand(String userInput) throws StitchException {
+        String removeCommand = userInput.replaceFirst("(?i)" + UPCOMING + "\\s*", "").trim();
+        checkEmpty(removeCommand, "OOPS! did you forget to add the number of days?");
+
+        int days;
+        try {
+            days = Integer.parseInt(removeCommand);
+        } catch (NumberFormatException e) {
+            throw new StitchException("OOPS! not a valid number of days. Was it a mistake?");
+        }
+        return new String[] { UPCOMING, String.valueOf(days) };
     }
 
     private static void checkEmpty(String str, String message) throws StitchException {

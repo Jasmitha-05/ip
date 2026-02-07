@@ -53,7 +53,7 @@ public class Stitch {
                 assert parsedInput.length == 4 : "wrong format for event";
                 return taskList.eventTask(parsedInput[1], parsedInput[2], parsedInput[3]);
             case "delete":
-                assert parsedInput.length == 3 : "wrong format for delete";
+                assert parsedInput.length == 2 : "wrong format for delete";
                 return taskList.deleteTask(Integer.parseInt(parsedInput[1]));
             case "search":
                 assert parsedInput.length == 2 : "wrong format for search";
@@ -61,6 +61,9 @@ public class Stitch {
             case "find":
                 assert parsedInput.length == 2 : "wrong format for find";
                 return taskList.findTask(parsedInput[1]);
+            case "upcoming":
+                assert parsedInput.length == 2 : "wrong format for upcoming";
+                return taskList.upcomingTask(Integer.parseInt(parsedInput[1]));
             case "bye":
                 return ui.showBye();
             default:
