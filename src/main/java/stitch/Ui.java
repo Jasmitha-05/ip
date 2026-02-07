@@ -155,4 +155,16 @@ public class Ui {
             return sb.toString();
         }
     }
+
+    public String showUpcomingTask(ArrayList<Task> upcomingTasks, int days) {
+        if (upcomingTasks.isEmpty()) {
+            return "YAYYY no tasks due soon!!🥳";
+        } else {
+            StringBuilder sb = new StringBuilder("Upcoming tasks due within " + days + " days:\n");
+            for (int i = 0; i < upcomingTasks.size(); i++) {
+                sb.append(upcomingTasks.get(i).toString()).append("\n");
+            }
+            return sb.toString();
+        }
+    }
 }

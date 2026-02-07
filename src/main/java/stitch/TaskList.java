@@ -252,4 +252,41 @@ public class TaskList {
         return task.description.toLowerCase().contains(caseInsensitive);
     }
 
+    public String upcomingTask(int days) throws StitchException {
+        if (tasks.isEmpty()) {
+            throw new StitchException("OOPS! no tasks currently.");
+        }
+
+        LocalDate today = LocalDate.now();
+        LocalDate endDate = today.plusDays(days);
+
+        ArrayList<Task> upcomingTasks = tasks.stream()
+                .filter(task -> upComing(task, today, endDate))
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        return ui.showUpcomingTask(upcomingTasks, days);
+    }
+
+    private boolean upComing(Task task, LocalDate today, LocalDate endDate) {
+        if (task instanceof Deadline) {
+            Deadline deadline = (Deadline) task;
+            LocalDate taskDate = deadline.by.toLocalDate();
+            return isWithinRangeDeadline(taskDate, today, endDate);
+        }
+        if (task instanceof Event) {
+            Event event = (Event) task;
+            LocalDate from = event.from.toLocalDate();
+            LocalDate to = event.to.toLocalDate();
+            return isWithinRangeEvent(from, to, today, endDate);
+        }
+        return false;
+    }
+
+    private boolean isWithinRangeDeadline(LocalDate taskDate, LocalDate startDate, LocalDate endDate) {
+        return !taskDate.isBefore(startDate) && !taskDate.isAfter(endDate);
+    }
+
+    private boolean isWithinRangeEvent(LocalDate from, LocalDate to, LocalDate startDate, LocalDate endDate) {
+        return !to.isBefore(startDate) && !from.isAfter(endDate);
+    }
 }
