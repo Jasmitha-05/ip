@@ -26,6 +26,7 @@ public class Parser {
      * @throws StitchException If the user input is invalid or invalid command.
      */
     public static String[] parse(String userInput) throws StitchException {
+        assert userInput != null : "input is null";
         userInput = userInput.trim();
 
         if (userInput.equalsIgnoreCase(LIST)) {
@@ -58,7 +59,6 @@ public class Parser {
         if (userInput.startsWith(FIND)) {
             return parseFindCommand(userInput);
         }
-
         throw new StitchException("I'm sorry, I don't understand.");
     }
 

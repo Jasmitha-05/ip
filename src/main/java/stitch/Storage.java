@@ -32,6 +32,7 @@ public class Storage {
 
             while ((text = read.readLine()) != null) {
                 Task task = parse(text);
+                assert task != null : "task is null";
                 tasks.add(task);
             }
 

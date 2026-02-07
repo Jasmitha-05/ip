@@ -27,6 +27,8 @@ public class TaskList {
         this.ui = ui;
         this.storage = storage;
         this.tasks = storage.load();
+
+        assert tasks != null : "Storage.load() returning null";
     }
 
     public String displayAllTasks() {
@@ -47,6 +49,8 @@ public class TaskList {
 
         checkIndex(order);
 
+        assert order >= 0 && order < tasks.size();
+
         tasks.get(order).markAsDone();
         storage.save(tasks);
         return ui.showMarkTask(tasks.get(order));
@@ -65,6 +69,8 @@ public class TaskList {
         }
 
         checkIndex(order);
+
+        assert order >= 0 && order < tasks.size();
 
         tasks.get(order).markAsUnDone();
         storage.save(tasks);
@@ -151,6 +157,8 @@ public class TaskList {
         }
 
         checkIndex(order);
+
+        assert order >= 0 && order < tasks.size();
 
         Task deletedTask = tasks.get(order);
         tasks.remove(order);
