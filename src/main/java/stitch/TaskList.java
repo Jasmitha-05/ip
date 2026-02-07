@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 /**
  * Represents a list of methods like execute user commands like add, delete,
@@ -186,13 +187,9 @@ public class TaskList {
 
         LocalDate searchDate = parseDate(date);
 
-        ArrayList<Task> sameDateTasks = new ArrayList<Task>();
-        for (int i = 0; i < tasks.size(); i++) {
-            Task task = tasks.get(i);
-            if (matchDate(task, searchDate)) {
-                sameDateTasks.add(task);
-            }
-        }
+        ArrayList<Task> sameDateTasks = tasks.stream()
+                .filter(task -> matchDate(task, searchDate))
+                .collect(Collectors.toCollection(ArrayList::new));
 
         return ui.showSameDateTask(sameDateTasks);
     }
@@ -238,20 +235,21 @@ public class TaskList {
      * @throws StitchException if no tasks available.
      */
     public String findTask(String keyword) throws StitchException {
-        if (tasks.size() == 0) {
+        if (tasks.isEmpty()) {
             throw new StitchException("OOPS! no tasks currently.");
         }
 
-        ArrayList<Task> matches = new ArrayList<Task>();
-        for (int i = 0; i < tasks.size(); i++) {
-            if (checkMatch(keyword, tasks.get(i))) {
-                matches.add(tasks.get(i));
-            }
-        }
+        String caseInsensitive = keyword.toLowerCase();
+
+        ArrayList<Task> matches = tasks.stream()
+                .filter(task -> containsKeyword(task, caseInsensitive))
+                .collect(Collectors.toCollection(ArrayList::new));
+
         return ui.showFindTask(matches);
     }
 
-    private boolean checkMatch(String keyword, Task task) {
-        return task.description.toLowerCase().contains(keyword.toLowerCase());
+    private boolean containsKeyword(Task task, String caseInsensitive) {
+        return task.description.toLowerCase().contains(caseInsensitive);
     }
+
 }
