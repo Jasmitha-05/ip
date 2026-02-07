@@ -47,9 +47,7 @@ public class TaskList {
             throw new StitchException("OOPS! no more task to mark.");
         }
 
-        if (order < 0 || order >= tasks.size()) {
-            throw new StitchException("OOPS! the number is invalid.");
-        }
+        checkIndex(order);
 
         assert order >= 0 && order < tasks.size();
 
@@ -70,9 +68,7 @@ public class TaskList {
             throw new StitchException("OOPS! no more task to unmark.");
         }
 
-        if (order < 0 || order >= tasks.size()) {
-            throw new StitchException("OOPS! the number is invalid.");
-        }
+        checkIndex(order);
 
         assert order >= 0 && order < tasks.size();
 
@@ -159,9 +155,8 @@ public class TaskList {
         if (tasks.size() == 0) {
             throw new StitchException("OOPS! no task to delete.");
         }
-        if (order < 0 || order >= tasks.size()) {
-            throw new StitchException("OOPS! the number is invalid.");
-        }
+
+        checkIndex(order);
 
         assert order >= 0 && order < tasks.size();
 
@@ -169,6 +164,12 @@ public class TaskList {
         tasks.remove(order);
         storage.save(tasks);
         return ui.showDeleteTask(deletedTask, tasks.size());
+    }
+
+    public void checkIndex(int order) throws StitchException {
+        if (order < 0 || order >= tasks.size()) {
+            throw new StitchException("OOPS! the number is invalid.");
+        }
     }
 
     /**
@@ -179,40 +180,54 @@ public class TaskList {
      * @throws StitchException if not tasks or wrong date format.
      */
     public String sameDateTask(String date) throws StitchException {
-        ArrayList<Task> sameDateTasks = new ArrayList<Task>();
-
         if (tasks.size() == 0) {
             throw new StitchException("OOPS! no tasks currently.");
         }
 
-        DateTimeFormatter input = DateTimeFormatter.ofPattern("yyyy-M-d");
-        LocalDate searchDate;
+        LocalDate searchDate = parseDate(date);
 
+        ArrayList<Task> sameDateTasks = new ArrayList<Task>();
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            if (matchDate(task, searchDate)) {
+                sameDateTasks.add(task);
+            }
+        }
+
+        return ui.showSameDateTask(sameDateTasks);
+    }
+
+    private LocalDate parseDate(String date) throws StitchException {
         try {
-            searchDate = LocalDate.parse(date, input);
+            DateTimeFormatter input = DateTimeFormatter.ofPattern("yyyy-M-d");
+            return LocalDate.parse(date, input);
         } catch (DateTimeParseException e) {
             throw new StitchException("OOPS! wrong format, use format: yyyy-M-d");
         }
+    }
 
-        for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.get(i) instanceof Deadline) {
-                LocalDate taskDate = ((Deadline) tasks.get(i)).by.toLocalDate();
-                if (taskDate.equals(searchDate)) {
-                    sameDateTasks.add(tasks.get(i));
-                }
-
-            } else if (tasks.get(i) instanceof Event) {
-                LocalDate from = ((Event) tasks.get(i)).from.toLocalDate();
-                LocalDate to = ((Event) tasks.get(i)).to.toLocalDate();
-                if (from.equals(searchDate) || to.equals(searchDate)
-                        || (searchDate.isAfter(from) && searchDate.isBefore(to))) {
-                    sameDateTasks.add(tasks.get(i));
-                }
-            } else {
-                continue;
-            }
+    private boolean matchDate(Task task, LocalDate searchDate) {
+        if (task instanceof Deadline deadline) {
+            return deadline.by.toLocalDate().equals(searchDate);
         }
-        return ui.showSameDateTask(sameDateTasks);
+        if (task instanceof Event event) {
+            LocalDate from = event.from.toLocalDate();
+            LocalDate to = event.to.toLocalDate();
+            return checkDateRange(searchDate, from, to);
+        }
+        return false;
+    }
+
+    private boolean checkDateRange(LocalDate searchDate, LocalDate from, LocalDate to) {
+        return isOnOrAfter(searchDate, from) && isOnOrBefore(searchDate, to);
+    }
+
+    private boolean isOnOrAfter(LocalDate searchDate, LocalDate from) {
+        return searchDate.isEqual(from) || searchDate.isAfter(from);
+    }
+
+    private boolean isOnOrBefore(LocalDate searchDate, LocalDate to) {
+        return searchDate.isEqual(to) || searchDate.isBefore(to);
     }
 
     /**
@@ -229,10 +244,14 @@ public class TaskList {
 
         ArrayList<Task> matches = new ArrayList<Task>();
         for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.get(i).description.toLowerCase().contains(keyword.toLowerCase())) {
+            if (checkMatch(keyword, tasks.get(i))) {
                 matches.add(tasks.get(i));
             }
         }
         return ui.showFindTask(matches);
+    }
+
+    private boolean checkMatch(String keyword, Task task) {
+        return task.description.toLowerCase().contains(keyword.toLowerCase());
     }
 }

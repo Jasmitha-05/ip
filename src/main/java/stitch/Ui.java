@@ -138,6 +138,12 @@ public class Ui {
         }
     }
 
+    /**
+     * Ui message to display all tasks occurring on the same date as given by user.
+     * 
+     * @param sameDateTasks list of tasks occurring on the same date.
+     * @return The message to be displayed.
+     */
     public String showSameDateTask(ArrayList<Task> sameDateTasks) {
         if (sameDateTasks.isEmpty()) {
             return "YAYYY no tasks!!";
