@@ -18,15 +18,29 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
-            AnchorPane ap = fxmlLoader.load();
-            Scene scene = new Scene(ap);
+            Scene scene = loadMainWindow();
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setStitch(stitch); // inject the Stitch instance
-            fxmlLoader.<MainWindow>getController().showGreeting();
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Loads the main window from FXML and sets up the controller.
+     * 
+     * @return the Scene representing the main window
+     * @throws IOException if loading FXML fails
+     */
+    private Scene loadMainWindow() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+        AnchorPane ap = fxmlLoader.load();
+        Scene scene = new Scene(ap);
+
+        MainWindow controller = fxmlLoader.getController();
+        controller.setStitch(stitch);
+        controller.showGreeting();
+
+        return scene;
     }
 }

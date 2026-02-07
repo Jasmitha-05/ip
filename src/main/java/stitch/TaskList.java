@@ -48,9 +48,7 @@ public class TaskList {
             throw new StitchException("OOPS! no more task to mark.");
         }
 
-        if (order < 0 || order >= tasks.size()) {
-            throw new StitchException("OOPS! the number is invalid.");
-        }
+        checkIndex(order);
 
         assert order >= 0 && order < tasks.size();
 
@@ -71,9 +69,7 @@ public class TaskList {
             throw new StitchException("OOPS! no more task to unmark.");
         }
 
-        if (order < 0 || order >= tasks.size()) {
-            throw new StitchException("OOPS! the number is invalid.");
-        }
+        checkIndex(order);
 
         assert order >= 0 && order < tasks.size();
 
@@ -160,9 +156,8 @@ public class TaskList {
         if (tasks.size() == 0) {
             throw new StitchException("OOPS! no task to delete.");
         }
-        if (order < 0 || order >= tasks.size()) {
-            throw new StitchException("OOPS! the number is invalid.");
-        }
+
+        checkIndex(order);
 
         assert order >= 0 && order < tasks.size();
 
@@ -170,6 +165,12 @@ public class TaskList {
         tasks.remove(order);
         storage.save(tasks);
         return ui.showDeleteTask(deletedTask, tasks.size());
+    }
+
+    public void checkIndex(int order) throws StitchException {
+        if (order < 0 || order >= tasks.size()) {
+            throw new StitchException("OOPS! the number is invalid.");
+        }
     }
 
     /**
@@ -180,7 +181,7 @@ public class TaskList {
      * @throws StitchException if not tasks or wrong date format.
      */
     public String sameDateTask(String date) throws StitchException {
-        if (tasks.isEmpty()) {
+        if (tasks.size() == 0) {
             throw new StitchException("OOPS! no tasks currently.");
         }
 
