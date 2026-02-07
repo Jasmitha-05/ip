@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 /**
  * Represents a list of methods like execute user commands like add, delete,
@@ -171,40 +172,50 @@ public class TaskList {
      * @throws StitchException if not tasks or wrong date format.
      */
     public String sameDateTask(String date) throws StitchException {
-        ArrayList<Task> sameDateTasks = new ArrayList<Task>();
-
-        if (tasks.size() == 0) {
+        if (tasks.isEmpty()) {
             throw new StitchException("OOPS! no tasks currently.");
         }
 
-        DateTimeFormatter input = DateTimeFormatter.ofPattern("yyyy-M-d");
-        LocalDate searchDate;
+        LocalDate searchDate = parseDate(date);
 
+        ArrayList<Task> sameDateTasks = tasks.stream()
+                .filter(task -> matchDate(task, searchDate))
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        return ui.showSameDateTask(sameDateTasks);
+    }
+
+    private LocalDate parseDate(String date) throws StitchException {
         try {
-            searchDate = LocalDate.parse(date, input);
+            DateTimeFormatter input = DateTimeFormatter.ofPattern("yyyy-M-d");
+            return LocalDate.parse(date, input);
         } catch (DateTimeParseException e) {
             throw new StitchException("OOPS! wrong format, use format: yyyy-M-d");
         }
+    }
 
-        for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.get(i) instanceof Deadline) {
-                LocalDate taskDate = ((Deadline) tasks.get(i)).by.toLocalDate();
-                if (taskDate.equals(searchDate)) {
-                    sameDateTasks.add(tasks.get(i));
-                }
-
-            } else if (tasks.get(i) instanceof Event) {
-                LocalDate from = ((Event) tasks.get(i)).from.toLocalDate();
-                LocalDate to = ((Event) tasks.get(i)).to.toLocalDate();
-                if (from.equals(searchDate) || to.equals(searchDate)
-                        || (searchDate.isAfter(from) && searchDate.isBefore(to))) {
-                    sameDateTasks.add(tasks.get(i));
-                }
-            } else {
-                continue;
-            }
+    private boolean matchDate(Task task, LocalDate searchDate) {
+        if (task instanceof Deadline deadline) {
+            return deadline.by.toLocalDate().equals(searchDate);
         }
-        return ui.showSameDateTask(sameDateTasks);
+        if (task instanceof Event event) {
+            LocalDate from = event.from.toLocalDate();
+            LocalDate to = event.to.toLocalDate();
+            return checkDateRange(searchDate, from, to);
+        }
+        return false;
+    }
+
+    private boolean checkDateRange(LocalDate searchDate, LocalDate from, LocalDate to) {
+        return isOnOrAfter(searchDate, from) && isOnOrBefore(searchDate, to);
+    }
+
+    private boolean isOnOrAfter(LocalDate searchDate, LocalDate from) {
+        return searchDate.isEqual(from) || searchDate.isAfter(from);
+    }
+
+    private boolean isOnOrBefore(LocalDate searchDate, LocalDate to) {
+        return searchDate.isEqual(to) || searchDate.isBefore(to);
     }
 
     /**
@@ -215,16 +226,21 @@ public class TaskList {
      * @throws StitchException if no tasks available.
      */
     public String findTask(String keyword) throws StitchException {
-        if (tasks.size() == 0) {
+        if (tasks.isEmpty()) {
             throw new StitchException("OOPS! no tasks currently.");
         }
 
-        ArrayList<Task> matches = new ArrayList<Task>();
-        for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.get(i).description.toLowerCase().contains(keyword.toLowerCase())) {
-                matches.add(tasks.get(i));
-            }
-        }
+        String caseInsensitive = keyword.toLowerCase();
+
+        ArrayList<Task> matches = tasks.stream()
+                .filter(task -> containsKeyword(task, caseInsensitive))
+                .collect(Collectors.toCollection(ArrayList::new));
+
         return ui.showFindTask(matches);
     }
+
+    private boolean containsKeyword(Task task, String caseInsensitive) {
+        return task.description.toLowerCase().contains(caseInsensitive);
+    }
+
 }
