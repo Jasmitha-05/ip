@@ -156,6 +156,13 @@ public class Ui {
         }
     }
 
+    /**
+     * Ui message to display all upcoming tasks due within given number of days.
+     * 
+     * @param upcomingTasks list of tasks due within given number of days.
+     * @param days          the number of days to check for upcoming tasks
+     * @return The message to be displayed.
+     */
     public String showUpcomingTask(ArrayList<Task> upcomingTasks, int days) {
         if (upcomingTasks.isEmpty()) {
             return "YAYYY no tasks due soon!!🥳";

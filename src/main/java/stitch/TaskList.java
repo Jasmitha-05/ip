@@ -194,6 +194,13 @@ public class TaskList {
         return ui.showSameDateTask(sameDateTasks);
     }
 
+    /**
+     * Parses the input date string into a LocalDate object.
+     * 
+     * @param date date string
+     * @return LocalDate object representing the input date.
+     * @throws StitchException if the date string is invalid
+     */
     private LocalDate parseDate(String date) throws StitchException {
         try {
             DateTimeFormatter input = DateTimeFormatter.ofPattern("yyyy-M-d");
@@ -203,6 +210,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Checks if a task's date matches the search date.
+     * 
+     * @param task       the task's date to check
+     * @param searchDate the date to match against
+     * @return true if the task's date matches the search date, false otherwise
+     */
     private boolean matchDate(Task task, LocalDate searchDate) {
         if (task instanceof Deadline deadline) {
             return deadline.by.toLocalDate().equals(searchDate);
@@ -215,14 +229,36 @@ public class TaskList {
         return false;
     }
 
+    /**
+     * Checks if the task's date falls on the search date
+     * 
+     * @param searchDate the date to match against
+     * @param from       start date of the task
+     * @param to         end date of the task
+     * @return true if the task's date falls on the search date, false otherwise
+     */
     private boolean checkDateRange(LocalDate searchDate, LocalDate from, LocalDate to) {
         return isOnOrAfter(searchDate, from) && isOnOrBefore(searchDate, to);
     }
 
+    /**
+     * Checks if searchDate is on or after from date.
+     * 
+     * @param searchDate the date to match against
+     * @param from       start date of the task
+     * @return true if searchDate is on or after from, false otherwise
+     */
     private boolean isOnOrAfter(LocalDate searchDate, LocalDate from) {
         return searchDate.isEqual(from) || searchDate.isAfter(from);
     }
 
+    /**
+     * Checks if searchDate is on or before to date.
+     * 
+     * @param searchDate the date to match against
+     * @param to         end date of the task
+     * @return true if searchDate is on or before to, false otherwise
+     */
     private boolean isOnOrBefore(LocalDate searchDate, LocalDate to) {
         return searchDate.isEqual(to) || searchDate.isBefore(to);
     }
@@ -248,10 +284,24 @@ public class TaskList {
         return ui.showFindTask(matches);
     }
 
+    /**
+     * Checks if a task's description contains the given keyword (case-insensitive).
+     * 
+     * @param task            the task to check
+     * @param caseInsensitive the keyword in lowercase
+     * @return true if the task's description contains the keyword, false otherwise
+     */
     private boolean containsKeyword(Task task, String caseInsensitive) {
         return task.description.toLowerCase().contains(caseInsensitive);
     }
 
+    /**
+     * Displays tasks that are upcoming within the specified number of days.
+     * 
+     * @param days the number of days to check for upcoming tasks
+     * @return UI message of the upcoming tasks
+     * @throws StitchException if no tasks are available
+     */
     public String upcomingTask(int days) throws StitchException {
         if (tasks.isEmpty()) {
             throw new StitchException("OOPS! no tasks currently.");
@@ -267,6 +317,14 @@ public class TaskList {
         return ui.showUpcomingTask(upcomingTasks, days);
     }
 
+    /**
+     * Checks if a task is upcoming within the specified date range.
+     * 
+     * @param task    the task to check
+     * @param today   the current date
+     * @param endDate the end date of the range
+     * @return true if the task is upcoming within the range, false otherwise
+     */
     private boolean upComing(Task task, LocalDate today, LocalDate endDate) {
         if (task instanceof Deadline) {
             Deadline deadline = (Deadline) task;
@@ -282,10 +340,28 @@ public class TaskList {
         return false;
     }
 
+    /**
+     * Checks if a deadline task's date is within the specified range.
+     *
+     * @param taskDate  the date of the task
+     * @param startDate the start date of the range
+     * @param endDate   the end date of the range
+     * @return true if the taskDate is within the range, false otherwise
+     */
     private boolean isWithinRangeDeadline(LocalDate taskDate, LocalDate startDate, LocalDate endDate) {
         return !taskDate.isBefore(startDate) && !taskDate.isAfter(endDate);
     }
 
+    /**
+     * Checks if an event task's date range overlaps with the specified range.
+     *
+     * @param from      the start date of the event
+     * @param to        the end date of the event
+     * @param startDate the start date of the range
+     * @param endDate   the end date of the range
+     * @return true if the event's date range overlaps with the specified range,
+     *         false otherwise
+     */
     private boolean isWithinRangeEvent(LocalDate from, LocalDate to, LocalDate startDate, LocalDate endDate) {
         return !to.isBefore(startDate) && !from.isAfter(endDate);
     }

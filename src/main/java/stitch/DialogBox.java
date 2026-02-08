@@ -57,10 +57,24 @@ public class DialogBox extends HBox {
         dialog.getStyleClass().add("reply-label");
     }
 
+    /**
+     * Create a dialog box for user
+     * 
+     * @param text the text to be displayed
+     * @param img  the image to be displayed
+     * @return a dialog box for user
+     */
     public static DialogBox getLiloDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Create a dialog box for Stitch
+     * 
+     * @param text the text to be displayed
+     * @param img  the image to be displayed
+     * @return a dialog box for Stitch
+     */
     public static DialogBox getStitchDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
