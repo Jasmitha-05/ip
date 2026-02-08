@@ -20,6 +20,7 @@ public class Main extends Application {
         try {
             Scene scene = loadMainWindow();
             stage.setScene(scene);
+            stage.setTitle("Stitch");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

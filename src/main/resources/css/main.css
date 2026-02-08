@@ -7,11 +7,19 @@
 .text-field {
     -fx-background-color: #5ebff4;
     -fx-font: 20px "Arial";
+
+    -fx-border-color: #0072b2;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
 }
 
 .button {
     -fx-background-color: #5ebff4;
     -fx-font: italic bold 16px "Arial";
+
+    -fx-border-color: #0072b2;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
 }
 
 .button:hover {
