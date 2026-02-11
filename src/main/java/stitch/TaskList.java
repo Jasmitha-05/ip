@@ -167,6 +167,12 @@ public class TaskList {
         return ui.showDeleteTask(deletedTask, tasks.size());
     }
 
+    /**
+     * Checks if the provided index is valid for the task list.
+     * 
+     * @param order index to be checked.
+     * @throws StitchException if the index is invalid.
+     */
     public void checkIndex(int order) throws StitchException {
         if (order < 0 || order >= tasks.size()) {
             throw new StitchException("OOPS! the number is invalid.");
