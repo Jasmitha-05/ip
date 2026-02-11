@@ -13,14 +13,14 @@ then
 fi
 
 # compile the code into the bin folder, terminates if error occurred
-if ! javac -cp ../../src/main/java -Xlint:none -d ../bin ../../src/main/java/stitch/*.java
+if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/stitch/*.java
 then
     echo "********** BUILD FAILURE **********"
     exit 1
 fi
 
 # run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ../bin Stitch < input.txt > ACTUAL.TXT
+java -classpath ../bin stitch.Stitch < input.txt > ACTUAL.TXT
 
 # convert to UNIX format
 tr -d '\r' < EXPECTED.TXT > EXPECTED-UNIX.TXT
