@@ -58,7 +58,7 @@ public class TaskListTest {
 
         try {
             taskList.todoTask("t1");
-            taskList.markTask(0);
+            taskList.markTask(-1);
             fail();
         } catch (StitchException e) {
             assertEquals("OOPS! the number is invalid.", e.getMessage());
@@ -84,7 +84,7 @@ public class TaskListTest {
 
         try {
             taskList.todoTask("t1");
-            taskList.unmarkTask(0);
+            taskList.unmarkTask(-1);
             fail();
         } catch (StitchException e) {
             assertEquals("OOPS! the number is invalid.", e.getMessage());
@@ -110,7 +110,7 @@ public class TaskListTest {
 
         try {
             taskList.todoTask("t1");
-            taskList.deleteTask(0);
+            taskList.deleteTask(-1);
             fail();
         } catch (StitchException e) {
             assertEquals("OOPS! the number is invalid.", e.getMessage());
