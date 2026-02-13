@@ -71,36 +71,41 @@ public class Storage {
      * @param text The text line to parse.
      * @return Task object parsed from the given text line.
      * @throws IllegalArgumentException for unknown/invalid task types.
-     * @throws StitchException
+     * @throws StitchException if the task details are invalid.
      */
-    private Task parse(String text) throws IllegalArgumentException, StitchException {
+    private Task parse(String text) throws StitchException { 
         String[] split = text.split(" \\| ");
-        String symbolString = split[0];
-        String isDone = split[1];
+        Task task = createTask(split);
+
+        if (split[1].equals("1")) {
+            task.markAsDone();
+        }
+        return task;
+    }
+
+    /**
+     * Creates a Task object based on the type specified in the split array.
+     * 
+     * @param split The array containing task type and details.
+     * @return Task object created based on the type specified.
+     * @throws IllegalArgumentException for unknown task types.
+     * @throws StitchException if the task details are invalid.
+     */
+    private Task createTask(String[] split) throws StitchException {
+        /* Use ChatGPT to improve the previous parse method by extracting 
+         * the method createTask to help adhere to SLAP.
+         */                                 
+        String taskType = split[0];
         String description = split[2];
 
-        if (symbolString.equals("T")) {
-            Task todo = new ToDo(description);
-            if (isDone.equals("1")) {
-                todo.markAsDone();
-            }
-            return todo;
-        } else if (symbolString.equals("D")) {
-            String by = split[3];
-            Task deadline = new Deadline(description, by);
-            if (isDone.equals("1")) {
-                deadline.markAsDone();
-            }
-            return deadline;
-        } else if (symbolString.equals("E")) {
-            String from = split[3];
-            String to = split[4];
-            Task event = new Event(description, from, to);
-            if (isDone.equals("1")) {
-                event.markAsDone();
-            }
-            return event;
-        } else {
+        switch (taskType) {
+        case "T":
+            return new ToDo(description);
+        case "D":
+            return new Deadline(description, split[3]);
+        case "E":
+            return new Event(description, split[3], split[4]);
+        default:
             throw new IllegalArgumentException("Unknown task");
         }
     }

@@ -2,17 +2,20 @@ package stitch;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import java.beans.Transient;
 
 import org.junit.jupiter.api.Test;
 
 /**
- * Test non-trivial methods in Parser class just JUnit and Gradle
+ * Test non-trivial methods in Parser class using JUnit and Gradle
  */
 public class ParserTest {
 
     @Test
-    public void parse_deadline_success() throws StitchException {
+    void parse_deadline_success() throws StitchException {
         String[] parsed = Parser.parse("deadline return book /by 2025-11-25 16:01");
         assertArrayEquals(new String[] { "deadline", "return book", "2025-11-25 16:01" }, parsed);
     }
@@ -135,4 +138,48 @@ public class ParserTest {
         }
     }
 
+    @Test
+    void parse_upcoming_success() throws StitchException {
+        String[] parsed = Parser.parse("upcoming 3");
+        assertArrayEquals(new String[] { "upcoming", "3" }, parsed);
+    }
+
+    @Test
+    void parse_upcoming_invalidNumber_exceptionThrown() { //Use ChatGPT to generate possible edge case for upcoming command 
+        StitchException e = assertThrows(StitchException.class, () -> {
+            Parser.parse("upcoming three");
+        });
+        assertEquals("OOPS! not a valid number of days. Was it a mistake?", e.getMessage());
+    }
+
+    @Test
+    void parse_caseInsensitive_success() throws StitchException { //Use ChatGPT to generate test case for case insensitivity of commands
+        String[] parsedTodo = Parser.parse("ToDo return book");
+        assertArrayEquals(new String[] { "todo", "return book" }, parsedTodo);
+
+        String[] parsedDeadline = Parser.parse("DeAdLine t1 /by 2025-12-3 15:00");
+        assertArrayEquals(new String[] { "deadline", "t1", "2025-12-3 15:00" }, parsedDeadline);
+
+        String[] parsedEvent = Parser.parse("EvEnT project /from 2025-12-1 2:00 /to 2025-12-3 15:00");
+        assertArrayEquals(new String[] { "event", "project", "2025-12-1 2:00", "2025-12-3 15:00" }, parsedEvent);
+
+        String[] parsedMark = Parser.parse("MaRk 2");
+        assertArrayEquals(new String[] { "mark", "1" }, parsedMark);
+    }
+
+    @Test
+    void parse_inputWithExtraSpaces_success() throws StitchException {
+        String[] parsed = Parser.parse("   deadline    return book   /by   2025-11-25 16:01   ");
+        assertArrayEquals(new String[] { "deadline", "return book", "2025-11-25 16:01" }, parsed);
+    }
+
+    @Test
+    void parse_inputPartOfCommand_exceptionThrown() {
+        try {
+            String[] parsed = Parser.parse("markus 2");
+            fail();
+        } catch (StitchException e) {
+            assertEquals("I'm sorry, I don't understand.", e.getMessage());
+        }
+    }
 }

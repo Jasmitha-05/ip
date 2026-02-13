@@ -309,6 +309,10 @@ public class TaskList {
      * @throws StitchException if no tasks are available
      */
     public String upcomingTask(int days) throws StitchException {
+        if (days < 0) {
+            throw new StitchException("OOPS! number of days cannot be negative.");
+        }
+        
         if (tasks.isEmpty()) {
             throw new StitchException("OOPS! no tasks currently.");
         }

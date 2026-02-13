@@ -4,10 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.beans.Transient;
+
 import org.junit.jupiter.api.Test;
 
 /**
- * Test non-trivial methods in TaskList class just JUnit and Gradle
+ * Test non-trivial methods in TaskList class using JUnit and Gradle
  */
 public class TaskListTest {
     private TaskList taskList;
@@ -126,5 +128,19 @@ public class TaskListTest {
         taskList.deadlineTask("t1", "2025-12-2 16:01");
         taskList.eventTask("t2", "2025-12-1 2:00", "2025-12-3 15:00");
         assertDoesNotThrow(() -> taskList.deleteTask(1));
+    }
+
+    @Test
+    public void upcomingTask_negativeDays_exceptionThrown() {
+        Ui ui = new Ui();
+        Storage storage = new Storage();
+        TaskList taskList = new TaskList(ui, storage);
+
+        try {
+            taskList.upcomingTask(-3);
+            fail();
+        } catch (StitchException e) {
+            assertEquals("OOPS! number of days cannot be negative.", e.getMessage());
+        }
     }
 }

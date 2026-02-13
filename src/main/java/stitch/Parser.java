@@ -30,40 +30,37 @@ public class Parser {
         assert userInput != null : "input is null";
         userInput = userInput.trim();
 
-        if (userInput.equalsIgnoreCase(LIST)) {
+        /*
+         * Use ChatGPT to change from StartsWith() to only allow strictly the 11
+         * commands and not allow any other variations of the commands like "markus"
+         */
+        String[] parts = userInput.split("\\s+", 2); 
+        String command = parts[0].toLowerCase(); 
+
+        switch (command) {
+        case LIST:
             return parseListCommand(LIST);
-        }
-        if (userInput.equalsIgnoreCase(BYE)) {
+        case BYE:
             return parseByeCommand(BYE);
-        }
-        if (userInput.startsWith(MARK)) {
-            return parseIndexCommand(MARK, userInput);
-        }
-        if (userInput.startsWith(UNMARK)) {
-            return parseIndexCommand(UNMARK, userInput);
-        }
-        if (userInput.startsWith(DELETE)) {
-            return parseIndexCommand(DELETE, userInput);
-        }
-        if (userInput.startsWith(TODO)) {
+        case MARK:
+        case UNMARK:
+        case DELETE:
+            return parseIndexCommand(command, userInput);
+        case TODO:
             return parseTodoCommand(userInput);
-        }
-        if (userInput.startsWith(DEADLINE)) {
+        case DEADLINE:
             return parseDeadlineCommand(userInput);
-        }
-        if (userInput.startsWith(EVENT)) {
+        case EVENT:
             return parseEventCommand(userInput);
-        }
-        if (userInput.startsWith(SEARCH)) {
+        case SEARCH:
             return parseSearchCommand(userInput);
-        }
-        if (userInput.startsWith(FIND)) {
+        case FIND:
             return parseFindCommand(userInput);
-        }
-        if (userInput.startsWith(UPCOMING)) {
+        case UPCOMING:
             return parseUpcomingCommand(userInput);
+        default:
+            throw new StitchException("I'm sorry, I don't understand.");
         }
-        throw new StitchException("I'm sorry, I don't understand.");
     }
 
     /**

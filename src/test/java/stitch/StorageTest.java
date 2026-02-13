@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
 /**
- * Test non-trivial methods in Storage class just JUnit and Gradle
+ * Test non-trivial methods in Storage class using JUnit and Gradle
  */
 public class StorageTest {
     private static final String PATH = "./data/stitch.txt";
