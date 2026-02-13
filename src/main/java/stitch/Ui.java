@@ -103,17 +103,17 @@ public class Ui {
                 : "numOfTasks not matching tasks.size()";
         if (numOfTasks == 0) {
             return "Good job! You have no more tasks.";
-        } else {
-            StringBuilder sb = new StringBuilder();
-            int order = 1;
-            for (int i = 0; i < tasks.size(); i++) {
-                sb.append(order).append(". ")
-                        .append(tasks.get(i).toString())
-                        .append("\n");
-                order++;
-            }
-            return "Here are the tasks in your list:\n" + sb.toString();
         }
+
+        StringBuilder sb = new StringBuilder();
+        int order = 1;
+        for (int i = 0; i < tasks.size(); i++) {
+            sb.append(order).append(". ")
+                    .append(tasks.get(i).toString())
+                    .append("\n");
+            order++;
+        }
+        return "Here are the tasks in your list:\n" + sb.toString();
     }
 
     /**
@@ -125,17 +125,17 @@ public class Ui {
     public String showFindTask(ArrayList<Task> matches) {
         if (matches.isEmpty()) {
             return "No matching task and keywords!!";
-        } else {
-            int order = 1;
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < matches.size(); i++) {
-                sb.append(order).append(". ")
-                        .append(matches.get(i).toString())
-                        .append("\n");
-                order++;
-            }
-            return "Here are the matching tasks in your list:\n" + sb.toString();
         }
+
+        int order = 1;
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < matches.size(); i++) {
+            sb.append(order).append(". ")
+                    .append(matches.get(i).toString())
+                    .append("\n");
+            order++;
+        }
+        return "Here are the matching tasks in your list:\n" + sb.toString();
     }
 
     /**
@@ -147,13 +147,13 @@ public class Ui {
     public String showSameDateTask(ArrayList<Task> sameDateTasks) {
         if (sameDateTasks.isEmpty()) {
             return "YAYYY no tasks!!";
-        } else {
-            StringBuilder sb = new StringBuilder("Got it. Tasks on that date:\n");
-            for (int i = 0; i < sameDateTasks.size(); i++) {
-                sb.append(sameDateTasks.get(i).toString()).append("\n");
-            }
-            return sb.toString();
         }
+
+        StringBuilder sb = new StringBuilder("Got it. Tasks on that date:\n");
+        for (int i = 0; i < sameDateTasks.size(); i++) {
+            sb.append(sameDateTasks.get(i).toString()).append("\n");
+        }
+        return sb.toString();
     }
 
     /**
@@ -166,12 +166,12 @@ public class Ui {
     public String showUpcomingTask(ArrayList<Task> upcomingTasks, int days) {
         if (upcomingTasks.isEmpty()) {
             return "YAYYY no tasks due soon!!🥳";
-        } else {
-            StringBuilder sb = new StringBuilder("Upcoming tasks due within " + days + " days:\n");
-            for (int i = 0; i < upcomingTasks.size(); i++) {
-                sb.append(upcomingTasks.get(i).toString()).append("\n");
-            }
-            return sb.toString();
         }
+
+        StringBuilder sb = new StringBuilder("Upcoming tasks due within " + days + " days:\n");
+        for (int i = 0; i < upcomingTasks.size(); i++) {
+            sb.append(upcomingTasks.get(i).toString()).append("\n");
+        }
+        return sb.toString();
     }
 }
