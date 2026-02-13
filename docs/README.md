@@ -18,9 +18,9 @@
 
 **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 
-2. Download the latest `.jar` file from [here](https://github.com/se-edu/addressbook-level3/releases).
+2. Download the latest `.jar` file from [here](https://github.com/Jasmitha-05/ip/releases).
 
-3. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
+3. Copy the file to the folder you want to use as the _home folder_ for your own Stitch Chatbot.
 
 4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar stitch.jar` command to run the application.
 
@@ -512,30 +512,18 @@ Stitch Chatbot data are saved automatically as a txt file `[JAR file location]/d
 Furthermore, certain edits can cause Stitch to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 
   
-  
 
 ## Command summary
 
-| Action | Format | Examples |
-
-|-----------|-------------------------------------------------------------|-----------------------------------------------|
-
-| todo | todo DESCRIPTION | todo upload assignment |
-
-| event | event DESCRIPTION /from YYYY-M-D H:M /to YYYY-M-D H:M | event career fest /from 2026-2-13 12:00 /to 2026-2-18 18:00 |
-
-| deadline | deadline DESCRIPTION /by YYYY-M-D H:M | deadline upload assignment /by 2026-2-13 12:00 |
-
-| list | list | list |
-
-| mark | mark INTEGER | mark 1 |
-
-| unmark | unmark INTEGER | unmark 1 |
-
-| delete | delete INDEX | delete 1 |
-
-| find | find KEYWORD | find fest |
-
-| search | search YYYY-M-D | search 2026-2-13 |
-
-| upcoming | upcoming DAYS | upcoming 3 |
+| Action   | Format                                                       | Examples                                              |
+|----------|--------------------------------------------------------------|-------------------------------------------------------|
+| `todo`     | `todo DESCRIPTION`                                             | `todo upload assignment`                                |
+| `event`    | `event DESCRIPTION /from YYYY-M-D H:M /to YYYY-M-D H:M`        | `event career fest /from 2026-2-13 12:00 /to 2026-2-18 18:00` |
+| `deadline` | `deadline DESCRIPTION /by YYYY-M-D H:M`                        | `deadline upload assignment /by 2026-2-13 12:00`       |
+| `list`     | `list`                                                         | `list`                                                  |
+| `mark`     | `mark INTEGER`                                                 | `mark 1`                                                |
+| `unmark`  | `unmark INTEGER`                                               | `unmark 1`                                              |
+| `delete`   | `delete INDEX`                                                 | `delete 1`                                              |
+| `find`     | `find KEYWORD`                                                 | `find fest`                                             |
+| `search`   | `search YYYY-M-D`                                              | `search 2026-2-13`                                      |
+| `upcoming` | `upcoming DAYS`                                                | `upcoming 3`                                            |
