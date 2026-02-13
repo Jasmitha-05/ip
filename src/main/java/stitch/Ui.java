@@ -106,6 +106,7 @@ public class Ui {
         }
 
         StringBuilder sb = new StringBuilder();
+        assert tasks.size() > 0 : "tasks should not have been empty";
         int order = 1;
         for (int i = 0; i < tasks.size(); i++) {
             sb.append(order).append(". ")
@@ -129,6 +130,7 @@ public class Ui {
 
         int order = 1;
         StringBuilder sb = new StringBuilder();
+        assert matches.size() > 0 : "matches list should not have been empty";
         for (int i = 0; i < matches.size(); i++) {
             sb.append(order).append(". ")
                     .append(matches.get(i).toString())
@@ -150,6 +152,7 @@ public class Ui {
         }
 
         StringBuilder sb = new StringBuilder("Got it. Tasks on that date:\n");
+        assert sameDateTasks.size() > 0 : "sameDateTasks should not have been empty";
         for (int i = 0; i < sameDateTasks.size(); i++) {
             sb.append(sameDateTasks.get(i).toString()).append("\n");
         }
@@ -169,6 +172,7 @@ public class Ui {
         }
 
         StringBuilder sb = new StringBuilder("Upcoming tasks due within " + days + " days:\n");
+        assert upcomingTasks.size() > 0 : "upcomingTasks should not have been empty";
         for (int i = 0; i < upcomingTasks.size(); i++) {
             sb.append(upcomingTasks.get(i).toString()).append("\n");
         }

@@ -100,10 +100,13 @@ public class Storage {
 
         switch (taskType) {
         case "T":
+            assert split.length >= 3 : "Missing information for todo task";
             return new ToDo(description);
         case "D":
+            assert split.length >= 4 : "Missing information for deadline task";
             return new Deadline(description, split[3]);
         case "E":
+            assert split.length >= 5 : "Missing information for event task";
             return new Event(description, split[3], split[4]);
         default:
             throw new IllegalArgumentException("Unknown task");
