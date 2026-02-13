@@ -58,9 +58,9 @@
 
 e.g. in `todo DESCRIPTION`, `DESCRIPTION` is a parameter which can be used as `todo read book`.
 
-  
+#### Types of inputs allowed:  
 
->- :exclamation: **All commands are case-insensitive.**
+>- **All commands are case-insensitive.**
 
   
 
@@ -68,7 +68,7 @@ e.g. `DEADline`/`deadline` and other combinations works just as fine
 
   
 
->- :exclamation: **Stitch chatbot can handle all inputs even those with extra spaces between the COMMAND, DESCRIPTION, FORMAT, DATE** to provide more flexibility for users
+>- **Stitch chatbot can handle all inputs even those with extra spaces between the COMMAND, DESCRIPTION, FORMAT, DATE** to provide more flexibility for users
 
   
 
@@ -84,7 +84,7 @@ e.g. deadline          submit          quiz        /by        2026-2-13 12:00
 
   
 
-:exclamation: **caution** however date format must strictly follow `yyyy-m-d H:m` exactly
+**caution!!** however date format must strictly follow `yyyy-m-d H:m` exactly
 
   
 
@@ -95,12 +95,14 @@ e.g. deadline          submit          quiz        /by        2026-2-13 12:00
 
 Add deadline task with specific date and time
 
-:exclamation: **caution** date format must strictly follow `yyyy-m-d H:m` exactly
+**caution!!** date format must strictly follow `yyyy-m-d H:m` exactly
 
 
 format: `deadline DESCRIPTION /by YYYY-M-D H:M`
 
 #### Examples:
+
+See [types of inputs allowed](#types-of-inputs-allowed:) above for more details.
 
 - `DEAdline submit quiz /by 2026-2-13 12:00 `
 -  `deadline upload assignment /by 2026-2-13 12:00`
@@ -120,11 +122,13 @@ Now you have 1 task in the list.
 
 Add event task with specific start and end date, time
 
-:exclamation: **caution** date format must strictly follow `yyyy-m-d H:m` exactly
+**caution!!** date format must strictly follow `yyyy-m-d H:m` exactly
 
 format: `event DESCRIPTION /from YYYY-M-D H:M /to YYYY-M-D H:M`
 
 #### Examples:
+
+See [types of inputs allowed](#types-of-inputs-allowed:) above for more details.
 
 - `EVEnt project meeting /from 2026-2-13 12:00 /to 2026-2-17 14:00 `
 -  `event career fest /from 2026-2-13 12:00 /to 2026-2-18`
@@ -147,6 +151,8 @@ format: `todo DESCRIPTION`
 
 #### Examples:
 
+See [types of inputs allowed](#types-of-inputs-allowed:) above for more details.
+
 - `TOdO read book `
 -  `todo upload assignment`
 
@@ -165,12 +171,14 @@ Now you have 3 task in the list.
 
 User can mark task that they have completed
 
-:exclamation: **caution** user can mark an already marked task
-:exclamation: **caution** INTEGER is **1-indexed** following the numbering shown when the list is displayed
+**caution!!** user can mark an already marked task
+**caution!!** INDEX is **1-indexed** following the numbering shown when the list is displayed
 
-format: `mark INTEGER`
+format: `mark INDEX`
 
 #### Examples:
+
+See [types of inputs allowed](#types-of-inputs-allowed:) above for more details.
 
 - `MaRK 1 `
 -  `mark 1 `
@@ -189,12 +197,14 @@ Nice I've marked this task as done:
 
 User can mark task that they have completed
 
-:exclamation: **caution** user can unmark an already unmarked task
-:exclamation: **caution** INTEGER is **1-indexed** following the numbering shown when the list is displayed
+**caution!!** user can unmark an already unmarked task
+**caution!!** INDEX is **1-indexed** following the numbering shown when the list is displayed
 
-format: `mark INTEGER`
+format: `mark INDEX`
 
 #### Examples:
+
+See [types of inputs allowed](#types-of-inputs-allowed:) above for more details.
 
 - `UNMaRK 1 `
 -  `unmark 1 `
@@ -217,6 +227,8 @@ format: `list`
 
 #### Examples:
 
+See [types of inputs allowed](#types-of-inputs-allowed:) above for more details.
+
 - `LiSt `
 -  `list`
 
@@ -238,9 +250,11 @@ User can ask stitch to delete a specific task
 
 format: `delete INDEX`
 
-:exclamation: **caution** INTEX is **1-indexed** following the numbering shown when the list is displayed
+**caution!!** INDEX is **1-indexed** following the numbering shown when the list is displayed
 
 #### Examples:
+
+See [types of inputs allowed](#types-of-inputs-allowed:) above for more details.
 
 - `DelETE 3 `
 -  `delete 3`
@@ -260,11 +274,13 @@ Now you have 2 tasks in the list
 
 User can ask stitch to display all tasks with matching description to the keyword given
 
-:exclamation: **caution** only **ONE keyword** allowed
+**caution!!** only **ONE keyword** allowed
 
 format: `find KEYWORD`
 
 #### Examples:
+
+See [types of inputs allowed](#types-of-inputs-allowed:) above for more details.
 
 - `FiND quiz `
 -  `find project`
@@ -283,11 +299,13 @@ Here are the matching tasks in your list:
 
 User can ask stitch to display all tasks falling on a specific **date**
 
-:exclamation: **caution** date format must strictly follow `yyyy-m-d` exactly
+**caution!!** date format must strictly follow `yyyy-m-d` exactly
 
 format: `search YYYY-M-D`
 
 #### Examples:
+
+See [types of inputs allowed](#types-of-inputs-allowed:) above for more details.
 
 - `SEArcH 2026-2-13 `
 -  `search 2026-2-13`
@@ -309,9 +327,11 @@ User can ask Stitch to display all tasks due in the coming specified days from t
 
 format: `upcoming DAYS`
 
-:exclamation: **caution** DAYS is an integer >= 0
+**caution!!** DAYS is an integer >= 0
 
 #### Examples:
+
+See [types of inputs allowed](#types-of-inputs-allowed:) above for more details.
 
 - `UpCOMing 3 `
 -  `upcoming 3`
@@ -336,6 +356,8 @@ format: `Bye`
 
 #### Examples:
 
+See [types of inputs allowed](#types-of-inputs-allowed:) above for more details.
+
 - `BYe `
 -  `bye`
 
@@ -355,32 +377,21 @@ Stitch Chatbot data are saved in the hard disk automatically after any command t
 
 Stitch Chatbot data are saved automatically as a txt file `[JAR file location]/data/stitch.txt`. Advanced users are welcome to update data directly by editing that data file.
 
-:exclamation: **Caution:** If your changes to the data file makes its format invalid, Stitch will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.
+**caution!!** If your changes to the data file makes its format invalid, Stitch will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.
 
 Furthermore, certain edits can cause Stitch to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 
 ## Command summary
 
-| Action | Format | Examples |
-
+| Action   | Format                                                       | Examples                                              |
 |----------|--------------------------------------------------------------|-------------------------------------------------------|
-
-| `todo` | `todo DESCRIPTION` | `todo upload assignment` |
-
-| `event` | `event DESCRIPTION /from YYYY-M-D H:M /to YYYY-M-D H:M` | `event career fest /from 2026-2-13 12:00 /to 2026-2-18 18:00` |
-
-| `deadline` | `deadline DESCRIPTION /by YYYY-M-D H:M` | `deadline upload assignment /by 2026-2-13 12:00` |
-
-| `list` | `list` | `list` |
-
-| `mark` | `mark INTEGER` | `mark 1` |
-
-| `unmark` | `unmark INTEGER` | `unmark 1` |
-
-| `delete` | `delete INDEX` | `delete 1` |
-
-| `find` | `find KEYWORD` | `find fest` |
-
-| `search` | `search YYYY-M-D` | `search 2026-2-13` |
-
-| `upcoming` | `upcoming DAYS` | `upcoming 3` |
+| todo     | todo DESCRIPTION                                             | todo upload assignment                                |
+| event    | event DESCRIPTION /from YYYY-M-D H:M /to YYYY-M-D H:M        | event career fest /from 2026-2-13 12:00 /to 2026-2-18 18:00 |
+| deadline | deadline DESCRIPTION /by YYYY-M-D H:M                        | deadline upload assignment /by 2026-2-13 12:00       |
+| list     | list                                                         | list                                                  |
+| mark     | mark INDEX                                                | mark 1                                                |
+| unmark   | unmark INDEX                                               | unmark 1                                              |
+| delete   | delete INDEX                                                 | delete 1                                              |
+| find     | find KEYWORD                                                 | find fest                                             |
+| search   | search YYYY-M-D                                              | search 2026-2-13                                      |
+| upcoming | upcoming DAYS                                                | upcoming 3                                            |
