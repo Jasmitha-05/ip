@@ -5,8 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import java.beans.Transient;
-
 import org.junit.jupiter.api.Test;
 
 /**
@@ -144,18 +142,20 @@ public class ParserTest {
         assertArrayEquals(new String[] { "upcoming", "3" }, parsed);
     }
 
+    // Use ChatGPT to generate possible edge case for upcoming command
     @Test
-    void parse_upcoming_invalidNumber_exceptionThrown() { //Use ChatGPT to generate possible edge case for upcoming command 
+    void parse_upcomingInvalidNumber_exceptionThrown() { 
         StitchException e = assertThrows(StitchException.class, () -> {
             Parser.parse("upcoming three");
         });
         assertEquals("OOPS! not a valid number of days. Was it a mistake?", e.getMessage());
     }
-
+    
+    // Use ChatGPT to generate test case for case insensitivity of commands
     @Test
-    void parse_caseInsensitive_success() throws StitchException { //Use ChatGPT to generate test case for case insensitivity of commands
-        String[] parsedTodo = Parser.parse("ToDo return book");
-        assertArrayEquals(new String[] { "todo", "return book" }, parsedTodo);
+    void parse_caseInsensitive_success() throws StitchException { 
+        String[] parsedToDo = Parser.parse("ToDo return book");
+        assertArrayEquals(new String[] { "todo", "return book" }, parsedToDo);
 
         String[] parsedDeadline = Parser.parse("DeAdLine t1 /by 2025-12-3 15:00");
         assertArrayEquals(new String[] { "deadline", "t1", "2025-12-3 15:00" }, parsedDeadline);
