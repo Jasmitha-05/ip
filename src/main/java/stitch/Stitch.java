@@ -1,7 +1,7 @@
 package stitch;
 
 /**
- * main class of the Stitch chatbot application.
+ * Handles the main class of the Stitch chatbot application.
  * Handles user input and executes based on command types (e.g., list, mark,
  * unmark, add, delete, search, bye).
  */

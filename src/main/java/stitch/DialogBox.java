@@ -58,7 +58,7 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Create a dialog box for user
+     * Creates a dialog box for user
      * 
      * @param text the text to be displayed
      * @param img  the image to be displayed
@@ -69,7 +69,7 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Create a dialog box for Stitch
+     * Creates a dialog box for Stitch
      * 
      * @param text the text to be displayed
      * @param img  the image to be displayed

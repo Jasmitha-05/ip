@@ -1,7 +1,7 @@
 package stitch;
 
 /**
- * Parser class help to format the user commands to easier task execution
+ * Creates Parser class help to format the user commands to easier task execution
  */
 public class Parser {
 
@@ -203,7 +203,7 @@ public class Parser {
     }
 
     /**
-     * Check if string is empty
+     * Checks if string is empty
      * 
      * @param str     the string to be checked
      * @param message the error message to be thrown

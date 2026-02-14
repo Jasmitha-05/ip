@@ -8,7 +8,7 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 
 /**
- * Storage class handles the loading and saving of tasks to a file in order to
+ * Uses Storage class to handle the loading and saving of tasks to a file in order to
  * retrieve the pre-existing list whenever the application is running.
  */
 public class Storage {

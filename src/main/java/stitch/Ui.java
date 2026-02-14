@@ -27,7 +27,7 @@ public class Ui {
     }
 
     /**
-     * Ui message to display all error messages to user.
+     * Creates Ui message to display all error messages to user.
      * 
      * @param message Error message to be displayed.
      * @return Error message.
@@ -38,7 +38,7 @@ public class Ui {
     }
 
     /**
-     * Ui message to display the current task being added and the total number of
+     * Creates Ui message to display the current task being added and the total number of
      * tasks in the list
      * 
      * @param task       The task being added.
@@ -53,7 +53,7 @@ public class Ui {
     }
 
     /**
-     * Ui message to display the current task being deleted and the total number of
+     * Creates Ui message to display the current task being deleted and the total number of
      * tasks in the list
      * 
      * @param task       The task being deleted.
@@ -68,7 +68,7 @@ public class Ui {
     }
 
     /**
-     * Ui message to display the current task being marked as done
+     * Creates Ui message to display the current task being marked as done
      * 
      * @param task The task being marked as done.
      * @return The message to be displayed.
@@ -80,7 +80,7 @@ public class Ui {
     }
 
     /**
-     * Ui message to display the current task being unmarked undone.
+     * Creates Ui message to display the current task being unmarked undone.
      * 
      * @param task The task being unmarked undone.
      * @return The message to be displayed.
@@ -92,7 +92,7 @@ public class Ui {
     }
 
     /**
-     * Ui message to display all tasks in the list.
+     * Creates Ui message to display all tasks in the list.
      * 
      * @param tasks      The ArrayList of tasks in the list.
      * @param numOfTasks The total number of tasks in the list.
@@ -118,7 +118,7 @@ public class Ui {
     }
 
     /**
-     * Ui message to display all matching tasks with the given keyword by user.
+     * Creates Ui message to display all matching tasks with the given keyword by user.
      * 
      * @param matches list of tasks containing all tasks with the matching keyword.
      * @return The message to be displayed.
@@ -141,7 +141,7 @@ public class Ui {
     }
 
     /**
-     * Ui message to display all tasks occurring on the same date as given by user.
+     * Creates Ui message to display all tasks occurring on the same date as given by user.
      * 
      * @param sameDateTasks list of tasks occurring on the same date.
      * @return The message to be displayed.
@@ -160,7 +160,7 @@ public class Ui {
     }
 
     /**
-     * Ui message to display all upcoming tasks due within given number of days.
+     * Creates Ui message to display all upcoming tasks due within given number of days.
      * 
      * @param upcomingTasks list of tasks due within given number of days.
      * @param days          the number of days to check for upcoming tasks

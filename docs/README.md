@@ -79,15 +79,15 @@ Examples:
 
 ```
 
-deadline          submit          quiz        /by        2026-2-13 12:00 
-todo        read       book
-event    project  meeting     /from     2026-2-13 12:00    /to          2026-2-17 14:00
-mark       1
-unmark     1
-upcoming      3
-search      2026-2-13
-find     read
-delete    2
+1. deadline          submit          quiz        /by        2026-2-13 12:00 
+2. todo        read       book
+3. event    project  meeting     /from     2026-2-13 12:00    /to          2026-2-17 14:00
+4. mark       1
+5. unmark     1
+6. upcoming      3
+7. search      2026-2-13
+8. find     read
+9. delete    2
 
 ```
 
