@@ -75,10 +75,19 @@ e.g. `DEADline`/`deadline` and other combinations works just as fine
 e.g. `COMMAND [any extra spacing] DESCRIPTION [any extra spacing] /FORMAT [any extra spacing] DATE`
 
   
+Examples:
 
 ```
 
-e.g. deadline          submit          quiz        /by        2026-2-13 12:00 
+deadline          submit          quiz        /by        2026-2-13 12:00 
+todo        read       book
+event    project  meeting     /from     2026-2-13 12:00    /to          2026-2-17 14:00
+mark       1
+unmark     1
+upcoming      3
+search      2026-2-13
+find     read
+delete    2
 
 ```
 
@@ -89,6 +98,8 @@ e.g. deadline          submit          quiz        /by        2026-2-13 12:00
   
 
 >- If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
+
+
 
 
 ### Adding Deadlines: `Deadline`
@@ -102,7 +113,7 @@ format: `deadline DESCRIPTION /by YYYY-M-D H:M`
 
 #### Examples:
 
-See [types of inputs allowed](#types-of-inputs-allowed:) above for more details.
+See [types of inputs allowed](#types-of-inputs-allowed) above for more details.
 
 - `DEAdline submit quiz /by 2026-2-13 12:00 `
 -  `deadline upload assignment /by 2026-2-13 12:00`
@@ -118,6 +129,7 @@ Now you have 1 task in the list.
 
 ```
 
+
 ### Adding Events: `Event`
 
 Add event task with specific start and end date, time
@@ -128,7 +140,7 @@ format: `event DESCRIPTION /from YYYY-M-D H:M /to YYYY-M-D H:M`
 
 #### Examples:
 
-See [types of inputs allowed](#types-of-inputs-allowed:) above for more details.
+See [types of inputs allowed](#types-of-inputs-allowed) above for more details.
 
 - `EVEnt project meeting /from 2026-2-13 12:00 /to 2026-2-17 14:00 `
 -  `event career fest /from 2026-2-13 12:00 /to 2026-2-18`
@@ -143,6 +155,7 @@ Now you have 2 task in the list.
 
 ```
 
+
 ### Adding Todos: `Todo`
 
 Add todo task
@@ -151,7 +164,7 @@ format: `todo DESCRIPTION`
 
 #### Examples:
 
-See [types of inputs allowed](#types-of-inputs-allowed:) above for more details.
+See [types of inputs allowed](#types-of-inputs-allowed) above for more details.
 
 - `TOdO read book `
 -  `todo upload assignment`
@@ -167,6 +180,7 @@ Now you have 3 task in the list.
 
 ```
 
+
 ### Marking tasks: `Mark`
 
 User can mark task that they have completed
@@ -178,7 +192,7 @@ format: `mark INDEX`
 
 #### Examples:
 
-See [types of inputs allowed](#types-of-inputs-allowed:) above for more details.
+See [types of inputs allowed](#types-of-inputs-allowed) above for more details.
 
 - `MaRK 1 `
 -  `mark 1 `
@@ -193,6 +207,7 @@ Nice I've marked this task as done:
 
 ```
 
+
 ### Unmarking tasks: `Unmark`
 
 User can mark task that they have completed
@@ -204,7 +219,7 @@ format: `mark INDEX`
 
 #### Examples:
 
-See [types of inputs allowed](#types-of-inputs-allowed:) above for more details.
+See [types of inputs allowed](#types-of-inputs-allowed) above for more details.
 
 - `UNMaRK 1 `
 -  `unmark 1 `
@@ -219,6 +234,7 @@ OK, I've marked this task as not done yet:
 
 ```
 
+
 ### Displaying List: `List`
 
 User can ask Stitch to display all the task
@@ -227,7 +243,7 @@ format: `list`
 
 #### Examples:
 
-See [types of inputs allowed](#types-of-inputs-allowed:) above for more details.
+See [types of inputs allowed](#types-of-inputs-allowed) above for more details.
 
 - `LiSt `
 -  `list`
@@ -244,6 +260,7 @@ Here are the tasks in your list:
 
 ```
 
+
 ### Deleting Tasks: `Delete`
 
 User can ask stitch to delete a specific task
@@ -254,7 +271,7 @@ format: `delete INDEX`
 
 #### Examples:
 
-See [types of inputs allowed](#types-of-inputs-allowed:) above for more details.
+See [types of inputs allowed](#types-of-inputs-allowed) above for more details.
 
 - `DelETE 3 `
 -  `delete 3`
@@ -270,6 +287,7 @@ Now you have 2 tasks in the list
 
 ```
 
+
 ### Finding tasks based on keywords: `Find`
 
 User can ask stitch to display all tasks with matching description to the keyword given
@@ -280,7 +298,7 @@ format: `find KEYWORD`
 
 #### Examples:
 
-See [types of inputs allowed](#types-of-inputs-allowed:) above for more details.
+See [types of inputs allowed](#types-of-inputs-allowed) above for more details.
 
 - `FiND quiz `
 -  `find project`
@@ -295,6 +313,7 @@ Here are the matching tasks in your list:
 
 ```
 
+
 ### Searching tasks based on date: `Search`
 
 User can ask stitch to display all tasks falling on a specific **date**
@@ -305,7 +324,7 @@ format: `search YYYY-M-D`
 
 #### Examples:
 
-See [types of inputs allowed](#types-of-inputs-allowed:) above for more details.
+See [types of inputs allowed](#types-of-inputs-allowed) above for more details.
 
 - `SEArcH 2026-2-13 `
 -  `search 2026-2-13`
@@ -321,6 +340,7 @@ Got it. Tasks on that date:
 
 ```
 
+
 ### Reminder for upcoming tasks: `Upcoming`
 
 User can ask Stitch to display all tasks due in the coming specified days from today
@@ -331,7 +351,7 @@ format: `upcoming DAYS`
 
 #### Examples:
 
-See [types of inputs allowed](#types-of-inputs-allowed:) above for more details.
+See [types of inputs allowed](#types-of-inputs-allowed) above for more details.
 
 - `UpCOMing 3 `
 -  `upcoming 3`
@@ -348,6 +368,7 @@ Upcoming tasks due within 3 days:
 
 ```
 
+
 ### Say BYE to Stitch: `Bye`
 
 User can always say bye
@@ -356,7 +377,7 @@ format: `Bye`
 
 #### Examples:
 
-See [types of inputs allowed](#types-of-inputs-allowed:) above for more details.
+See [types of inputs allowed](#types-of-inputs-allowed) above for more details.
 
 - `BYe `
 -  `bye`
@@ -369,9 +390,11 @@ Bye. Hope to see you soon!
 
 ```
 
+
 ### Saving the data
 
 Stitch Chatbot data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+
 
 ### Editing the data file
 
@@ -380,6 +403,7 @@ Stitch Chatbot data are saved automatically as a txt file `[JAR file location]/d
 **caution!!** If your changes to the data file makes its format invalid, Stitch will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.
 
 Furthermore, certain edits can cause Stitch to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+
 
 ## Command summary
 
