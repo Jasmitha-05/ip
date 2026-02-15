@@ -407,15 +407,18 @@ Furthermore, certain edits can cause Stitch to behave in unexpected ways (e.g., 
 
 ## Command summary
 
+See [types of inputs allowed](#types-of-input-format-allowed) above for more details.
+
 | Action   | Format                                                       | Examples                                              |
 |----------|--------------------------------------------------------------|-------------------------------------------------------|
 | todo     | todo DESCRIPTION                                             | todo upload assignment                                |
 | event    | event DESCRIPTION /from YYYY-M-D H:M /to YYYY-M-D H:M        | event career fest /from 2026-2-13 12:00 /to 2026-2-18 18:00 |
 | deadline | deadline DESCRIPTION /by YYYY-M-D H:M                        | deadline upload assignment /by 2026-2-13 12:00       |
 | list     | list                                                         | list                                                  |
-| mark     | mark INDEX                                                | mark 1                                                |
-| unmark   | unmark INDEX                                               | unmark 1                                              |
+| mark     | mark INTEGER                                                 | mark 1                                                |
+| unmark   | unmark INTEGER                                               | unmark 1                                              |
 | delete   | delete INDEX                                                 | delete 1                                              |
 | find     | find KEYWORD                                                 | find fest                                             |
 | search   | search YYYY-M-D                                              | search 2026-2-13                                      |
 | upcoming | upcoming DAYS                                                | upcoming 3                                            |
+| bye      | bye                                                          | bye                                                   |
