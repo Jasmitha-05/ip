@@ -58,7 +58,7 @@
 
 e.g. in `todo DESCRIPTION`, `DESCRIPTION` is a parameter which can be used as `todo read book`.
 
-#### Types of inputs allowed:  
+#### Types of input format allowed:  
 
 >- **All commands are case-insensitive.**
 
@@ -79,8 +79,8 @@ Examples:
 
 ```
 
-1. deadline          submit          quiz        /by        2026-2-13 12:00 
-2. todo        read       book
+1. deadline          submit quiz        /by        2026-2-13 12:00 
+2. todo        read book
 3. event    project  meeting     /from     2026-2-13 12:00    /to          2026-2-17 14:00
 4. mark       1
 5. unmark     1
@@ -113,7 +113,7 @@ format: `deadline DESCRIPTION /by YYYY-M-D H:M`
 
 #### Examples:
 
-See [types of inputs allowed](#types-of-inputs-allowed) above for more details.
+See [types of inputs allowed](#types-of-input-format-allowed) above for more details.
 
 - `DEAdline submit quiz /by 2026-2-13 12:00 `
 -  `deadline upload assignment /by 2026-2-13 12:00`
@@ -140,7 +140,7 @@ format: `event DESCRIPTION /from YYYY-M-D H:M /to YYYY-M-D H:M`
 
 #### Examples:
 
-See [types of inputs allowed](#types-of-inputs-allowed) above for more details.
+See [types of inputs allowed](#types-of-input-format-allowed) above for more details.
 
 - `EVEnt project meeting /from 2026-2-13 12:00 /to 2026-2-17 14:00 `
 -  `event career fest /from 2026-2-13 12:00 /to 2026-2-18`
@@ -164,7 +164,7 @@ format: `todo DESCRIPTION`
 
 #### Examples:
 
-See [types of inputs allowed](#types-of-inputs-allowed) above for more details.
+See [types of inputs allowed](#types-of-input-format-allowed) above for more details.
 
 - `TOdO read book `
 -  `todo upload assignment`
@@ -192,7 +192,7 @@ format: `mark INDEX`
 
 #### Examples:
 
-See [types of inputs allowed](#types-of-inputs-allowed) above for more details.
+See [types of inputs allowed](#types-of-input-format-allowed) above for more details.
 
 - `MaRK 1 `
 -  `mark 1 `
@@ -219,7 +219,7 @@ format: `mark INDEX`
 
 #### Examples:
 
-See [types of inputs allowed](#types-of-inputs-allowed) above for more details.
+See [types of inputs allowed](#types-of-input-format-allowed) above for more details.
 
 - `UNMaRK 1 `
 -  `unmark 1 `
@@ -243,7 +243,7 @@ format: `list`
 
 #### Examples:
 
-See [types of inputs allowed](#types-of-inputs-allowed) above for more details.
+See [types of inputs allowed](#types-of-input-format-allowed) above for more details.
 
 - `LiSt `
 -  `list`
@@ -271,7 +271,7 @@ format: `delete INDEX`
 
 #### Examples:
 
-See [types of inputs allowed](#types-of-inputs-allowed) above for more details.
+See [types of inputs allowed](#types-of-input-format-allowed) above for more details.
 
 - `DelETE 3 `
 -  `delete 3`
@@ -298,7 +298,7 @@ format: `find KEYWORD`
 
 #### Examples:
 
-See [types of inputs allowed](#types-of-inputs-allowed) above for more details.
+See [types of inputs allowed](#types-of-input-format-allowed) above for more details.
 
 - `FiND quiz `
 -  `find project`
@@ -324,7 +324,7 @@ format: `search YYYY-M-D`
 
 #### Examples:
 
-See [types of inputs allowed](#types-of-inputs-allowed) above for more details.
+See [types of inputs allowed](#types-of-input-format-allowed) above for more details.
 
 - `SEArcH 2026-2-13 `
 -  `search 2026-2-13`
@@ -351,7 +351,7 @@ format: `upcoming DAYS`
 
 #### Examples:
 
-See [types of inputs allowed](#types-of-inputs-allowed) above for more details.
+See [types of inputs allowed](#types-of-input-format-allowed) above for more details.
 
 - `UpCOMing 3 `
 -  `upcoming 3`
@@ -377,7 +377,7 @@ format: `Bye`
 
 #### Examples:
 
-See [types of inputs allowed](#types-of-inputs-allowed) above for more details.
+See [types of inputs allowed](#types-of-input-format-allowed) above for more details.
 
 - `BYe `
 -  `bye`
