@@ -8,8 +8,8 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.util.Duration;
-import javafx.stage.Stage;
 
 /**
  * Creates the controller for the main GUI.
@@ -76,17 +76,16 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Handles exiting of application when user input is bye
+     * Handles exiting of application when user input is "bye"
      * 
      * @param input command input by user
      */
     private void handleExit(String input) {
         if (input.trim().equalsIgnoreCase("bye")) {
+            userInput.setDisable(true);
+            sendButton.setDisable(true);
             PauseTransition wait = new PauseTransition(Duration.seconds(1.5));
-            wait.setOnFinished(exit -> {
-                Stage stage = (Stage) scrollPane.getScene().getWindow();
-                stage.close();
-            });
+            wait.setOnFinished(event -> Platform.exit());
             wait.play();
         }
     }
