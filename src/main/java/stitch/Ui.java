@@ -38,7 +38,8 @@ public class Ui {
     }
 
     /**
-     * Creates Ui message to display the current task being added and the total number of
+     * Creates Ui message to display the current task being added and the total
+     * number of
      * tasks in the list
      * 
      * @param task       The task being added.
@@ -53,7 +54,8 @@ public class Ui {
     }
 
     /**
-     * Creates Ui message to display the current task being deleted and the total number of
+     * Creates Ui message to display the current task being deleted and the total
+     * number of
      * tasks in the list
      * 
      * @param task       The task being deleted.
@@ -118,7 +120,8 @@ public class Ui {
     }
 
     /**
-     * Creates Ui message to display all matching tasks with the given keyword by user.
+     * Creates Ui message to display all matching tasks with the given keyword by
+     * user.
      * 
      * @param matches list of tasks containing all tasks with the matching keyword.
      * @return The message to be displayed.
@@ -141,7 +144,8 @@ public class Ui {
     }
 
     /**
-     * Creates Ui message to display all tasks occurring on the same date as given by user.
+     * Creates Ui message to display all tasks occurring on the same date as given
+     * by user.
      * 
      * @param sameDateTasks list of tasks occurring on the same date.
      * @return The message to be displayed.
@@ -160,7 +164,8 @@ public class Ui {
     }
 
     /**
-     * Creates Ui message to display all upcoming tasks due within given number of days.
+     * Creates Ui message to display all upcoming tasks due within given number of
+     * days.
      * 
      * @param upcomingTasks list of tasks due within given number of days.
      * @param days          the number of days to check for upcoming tasks
@@ -168,7 +173,7 @@ public class Ui {
      */
     public String showUpcomingTask(ArrayList<Task> upcomingTasks, int days) {
         if (upcomingTasks.isEmpty()) {
-            return "YAYYY no tasks due soon!!🥳";
+            return "YAYYY no tasks due soon!!";
         }
 
         StringBuilder sb = new StringBuilder("Upcoming tasks due within " + days + " days:\n");
