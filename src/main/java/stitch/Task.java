@@ -1,13 +1,15 @@
 package stitch;
 
 import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
 
 /**
  * Represents a task with a description, completion status (mark/unmark).
  */
 public class Task {
 
-    protected static final DateTimeFormatter INPUT = DateTimeFormatter.ofPattern("yyyy-M-d H:m");
+    protected static final DateTimeFormatter INPUT = DateTimeFormatter.ofPattern("uuuu-M-d H:m")
+            .withResolverStyle(ResolverStyle.STRICT);
     protected static final DateTimeFormatter OUTPUT = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
     protected String description;
     protected boolean isDone;

@@ -35,7 +35,7 @@ public class TaskListTest {
             taskList.sameDateTask("24-12-2026");
             fail();
         } catch (StitchException e) {
-            assertEquals("OOPS! wrong format, use format: yyyy-M-d", e.getMessage());
+            assertEquals("OOPS! wrong format, use format: yyyy-M-d or ensure valid date/time input", e.getMessage());
         }
     }
 
@@ -141,4 +141,33 @@ public class TaskListTest {
             assertEquals("OOPS! number of days cannot be negative.", e.getMessage());
         }
     }
+
+    @Test
+    public void eventTask_endDateBeforeStartDate_exceptionThrown() {
+        Ui ui = new Ui();
+        Storage storage = new Storage();
+        TaskList taskList = new TaskList(ui, storage);
+
+        try {
+            taskList.eventTask("test1", "2026-12-1 12:00", "2026-11-3 12:00");
+            fail();
+        } catch (StitchException e) {
+            assertEquals("OOPS! The end date/time cannot be before the start date/time.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void searchTask_invalidDate_exceptionThrown() {
+        Ui ui = new Ui();
+        Storage storage = new Storage();
+        TaskList taskList = new TaskList(ui, storage);
+
+        try {
+            taskList.sameDateTask("2026-2-30 12:00");
+            fail();
+        } catch (StitchException e) {
+            assertEquals("OOPS! wrong format, use format: yyyy-M-d or ensure valid date/time input", e.getMessage());
+        }
+    }
+
 }

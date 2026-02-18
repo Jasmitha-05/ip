@@ -23,7 +23,8 @@ public class Deadline extends Task {
         try {
             this.by = LocalDateTime.parse(by.trim(), INPUT);
         } catch (DateTimeParseException e) {
-            throw new StitchException("OOPS! Please use the format yyyy-M-d H:m");
+            throw new StitchException(
+                    "OOPS! Please use the format yyyy-M-d H:m or ensure valid date/time input");
         }
     }
 

@@ -3,6 +3,7 @@ package stitch;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
@@ -209,10 +210,12 @@ public class TaskList {
      */
     private LocalDate parseDate(String date) throws StitchException {
         try {
-            DateTimeFormatter input = DateTimeFormatter.ofPattern("yyyy-M-d");
+            DateTimeFormatter input = DateTimeFormatter.ofPattern("uuuu-M-d")
+                    .withResolverStyle(ResolverStyle.STRICT);
             return LocalDate.parse(date, input);
         } catch (DateTimeParseException e) {
-            throw new StitchException("OOPS! wrong format, use format: yyyy-M-d");
+            throw new StitchException(
+                    "OOPS! wrong format, use format: yyyy-M-d or ensure valid date/time input");
         }
     }
 
@@ -312,7 +315,7 @@ public class TaskList {
         if (days < 0) {
             throw new StitchException("OOPS! number of days cannot be negative.");
         }
-        
+
         if (tasks.isEmpty()) {
             throw new StitchException("OOPS! no tasks currently.");
         }

@@ -25,8 +25,15 @@ public class Event extends Task {
         try {
             this.from = LocalDateTime.parse(from.trim(), INPUT);
             this.to = LocalDateTime.parse(to.trim(), INPUT);
+
+            if (this.to.isBefore(this.from)) {
+                throw new StitchException(
+                        "OOPS! The end date/time cannot be before the start date/time.");
+            }
+
         } catch (DateTimeParseException e) {
-            throw new StitchException("OOPS! Please use the format yyyy-M-d H:m");
+            throw new StitchException(
+                    "OOPS! Please use the format yyyy-M-d H:m or ensure valid date/time input");
         }
     }
 
