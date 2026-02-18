@@ -7,6 +7,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.animation.PauseTransition;
+import javafx.util.Duration;
+import javafx.stage.Stage;
 
 /**
  * Creates the controller for the main GUI.
@@ -47,14 +50,44 @@ public class MainWindow extends AnchorPane {
      * Creates two dialog boxes, one echoing user input and the other containing
      * Stitch's reply and then appends them to
      * the dialog container. Clears the user input after processing.
+     * exit application
      */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
         String response = stitch.getResponse(input);
+        addDialogBox(input, response);
+        userInput.clear();
+
+        handleExit(input);
+
+    }
+
+    /**
+     * Creates dialog container containing user and Stitch input/response
+     * 
+     * @param input    user's input text
+     * @param response Stitch's response to the text
+     */
+    private void addDialogBox(String input, String response) {
         dialogContainer.getChildren().addAll(
                 DialogBox.getLiloDialog(input, liloImage),
                 DialogBox.getStitchDialog(response, stitchImage));
-        userInput.clear();
+    }
+
+    /**
+     * Handles exiting of application when user input is bye
+     * 
+     * @param input command input by user
+     */
+    private void handleExit(String input) {
+        if (input.trim().equalsIgnoreCase("bye")) {
+            PauseTransition wait = new PauseTransition(Duration.seconds(1.5));
+            wait.setOnFinished(exit -> {
+                Stage stage = (Stage) scrollPane.getScene().getWindow();
+                stage.close();
+            });
+            wait.play();
+        }
     }
 }
