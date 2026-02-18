@@ -382,7 +382,7 @@ See [types of inputs allowed](#types-of-input-format-allowed) above for more det
 - `BYe `
 -  `bye`
 
-If user says bye, Stitch will say bye to you back
+If user says bye, Stitch will say bye to you back and exit the application.
 
 ```
 
